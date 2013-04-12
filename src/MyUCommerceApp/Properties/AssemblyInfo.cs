@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MyUCommerceApp")]
+[assembly: AssemblyTitle("MyUCommerceApp.Library")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MyUCommerceApp")]
+[assembly: AssemblyProduct("MyUCommerceApp.Library")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7982ddff-fe60-459c-9170-ece057d69d7a")]
+[assembly: Guid("a002b6e4-d705-41bd-abd4-d6506eea90f6")]
 
 // Version information for an assembly consists of the following four values:
 //
