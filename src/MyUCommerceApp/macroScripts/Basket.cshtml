@@ -1,0 +1,77 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Api
+@using UCommerce
+
+@{
+	var basket = TransactionLibrary.GetBasket().PurchaseOrder;
+	var currency = basket.BillingCurrency;
+}
+
+@{
+	if (Request.HttpMethod == "POST")
+	{
+		int orderLineIdToRemove = 0;
+		foreach (var orderline in basket.OrderLines)
+		{
+			if (Request.Form["remove_" + orderline.OrderLineId] != null)
+			{
+				orderLineIdToRemove = orderline.OrderLineId;
+			}
+			int qty = Convert.ToInt32(Request.Form["quantity_" + orderline.OrderLineId]);
+
+			TransactionLibrary.UpdateLineItem(orderline.OrderLineId, qty);
+		}
+		
+		if (orderLineIdToRemove > 0)
+		{
+			TransactionLibrary.UpdateLineItem(orderLineIdToRemove, 0);
+		}
+		
+		TransactionLibrary.ExecuteBasketPipeline();
+	}
+}
+
+<form method="POST">
+<table>
+@foreach (var orderLine in basket.OrderLines)
+{
+	var total = new Money(orderLine.Total.Value, currency);
+	var unitPrice = new Money(orderLine.Price, currency);
+	var unitTax = new Money(orderLine.VAT, currency);
+	<tr>
+		<td>
+			@orderLine.Sku @orderLine.VariantSku
+		</td>
+		<td>
+			@orderLine.ProductName
+		</td>
+		<td>
+			<input type="text" name="quantity_@orderLine.OrderLineId" value="@orderLine.Quantity"/>
+		</td>
+		<td>
+			@unitPrice
+		</td>
+		<td>
+			@unitTax
+		</td>
+		<td>
+			@total
+		</td>
+		<td>
+			<input type="submit" name="remove_@orderLine.OrderLineId" value="x"/>
+		</td>
+	</tr>
+}
+
+@{
+	var orderTotal = new Money(basket.OrderTotal.Value, currency);
+}
+	<tr>
+		<td colspan="3"></td>
+		<td>Order total</td>
+		<td>@orderTotal</td>
+	</tr>
+</table>
+		<input type="submit" name="update" value="Update" />
+		<a href="billing">On to billing information</a>
+</form>

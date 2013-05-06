@@ -1,0 +1,69 @@
+﻿<script>
+	$(function() {
+		$("#addButton").click(function() {
+			$.uCommerce.addToBasket(
+				{
+					sku: $("#sku").val(),
+					variantSku: $("#variantSku").val(),
+					quantity: 1
+				},
+				function() { alert("OK"); },
+				function() { alert("Blimey!"); }
+			);
+			return false;
+		});
+	});	
+</script>
+
+@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Runtime
+@using UCommerce.Api
+@using UCommerce.Extensions
+@{
+	var product = SiteContext.Current.CatalogContext.CurrentProduct;
+	var price = CatalogLibrary.CalculatePrice(product);
+	var relations = CatalogLibrary.GetRelatedProducts(product.ProductId).SelectMany(x => x.Value);
+}
+
+@{
+	if (Request.HttpMethod == "POST")
+	{
+		string sku = Request.Form["sku"];
+		string variantSku = Request.Form["variantSku"];
+		
+		TransactionLibrary.AddToBasket(1, sku, variantSku);
+		
+		Response.Write(string.Format("Added item {0}", sku));
+	}
+}
+
+<h1>
+	@product.DisplayName()
+</h1>
+
+<form method="POST">
+	<input type="hidden" name="sku" id="sku" value="@product.Sku"/>
+	<span>@price.YourPrice.Amount</span>
+		
+	@if (product.ProductDefinition.IsProductFamily())
+	{
+		<select name="variantSku" id="variantSku" >
+			@foreach (var variant in product.Variants)
+			{
+			<option value="@variant.VariantSku">
+				@variant.VariantSku, @variant.DynamicProperty().CollarSize
+			</option>
+			}
+		</select>
+	}
+	<input type="submit" id="addButton" name="addButton" value="Add to basket"/>
+</form>
+@if (relations.Any())
+{
+	<h2>You might also like</h2>
+}
+
+@foreach (var relation in relations)
+{
+	@relation.DisplayName()
+}
