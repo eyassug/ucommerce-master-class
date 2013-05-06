@@ -1,0 +1,35 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+
+	
+@{
+	if (IsPost)
+	{
+		int shippingMethodId = Convert.ToInt32(Request.Form["shippingMethod"]);
+		TransactionLibrary.CreateShipment(shippingMethodId, "Shipment", true);
+		TransactionLibrary.ExecuteBasketPipeline();
+		Response.Redirect("payment");
+	}
+}
+@{
+	var shippingCountry = TransactionLibrary.GetShipmentInformation().Country;
+	var shippingMethods = TransactionLibrary.GetShippingMethods(shippingCountry);
+	
+	var shipment = TransactionLibrary.GetBasket().PurchaseOrder.Shipments.FirstOrDefault();
+	int selectedShippingMethodId = shipment != null ? shipment.ShippingMethod.ShippingMethodId : 0;
+}
+
+<form method="post">
+@foreach (var shippingMethod in shippingMethods)
+{
+	<label>
+		<input type="radio" name="shippingMethod" value="@shippingMethod.ShippingMethodId"
+		@(selectedShippingMethodId == shippingMethod.ShippingMethodId ? "checked" : "")
+		/>@shippingMethod.Name
+	</label>
+}
+<br/>
+<a href="shipping">Back</a><input type="submit" value="Proceed to payment methods"/>
+	
+</form>

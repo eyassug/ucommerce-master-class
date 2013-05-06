@@ -1,0 +1,32 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Api
+
+@{
+	if (IsPost)
+	{
+		int paymentMethodId = Convert.ToInt32(Request.Form["paymentMethod"]);
+		
+		TransactionLibrary.CreatePayment(paymentMethodId, -1, false, true);
+		
+		TransactionLibrary.ExecuteBasketPipeline();
+		
+		Response.Redirect("preview");
+	}
+}
+
+@{
+	var billingCountry = TransactionLibrary.GetBillingInformation().Country;
+	
+	var paymentMethods = TransactionLibrary.GetPaymentMethods(billingCountry);
+}
+
+<form method="post">
+@foreach (var paymentMethod in paymentMethods)
+{
+	<label>
+		<input type="radio" name="paymentMethod" value="@paymentMethod.PaymentMethodId"/>
+		@paymentMethod.Name
+	</label>
+}
+	<input type="submit" value="Proceed to Preview"/>
+</form>

@@ -1,0 +1,14 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Api
+@{
+	bool hasBasket = TransactionLibrary.HasBasket();
+	if (hasBasket)
+	{
+		var basket = TransactionLibrary.GetBasket().PurchaseOrder;
+	}
+}
+
+@if (hasBasket)
+{
+	<a href="/checkout/basket">Go to checkout</a>
+}

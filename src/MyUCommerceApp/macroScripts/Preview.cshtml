@@ -1,0 +1,37 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+	
+@{
+	if (IsPost)
+	{
+		TransactionLibrary.RequestPayments();
+		Response.Redirect("Confirmation");
+	}
+}
+@{
+
+	var order = Request.QueryString["orderGuid"] != null
+		? PurchaseOrder.All().Single(x => x.OrderGuid == new Guid(Request.QueryString["orderGuid"]))
+		: TransactionLibrary.GetBasket().PurchaseOrder;
+	
+	var billingAddress = order.BillingAddress;
+	var shippingAddress = order.Shipments.First().ShipmentAddress;
+}
+<form method="post">
+	@Display(billingAddress)
+	@Display(shippingAddress)
+	<input type="submit" value="Complete Order"/>
+</form>
+@helper Display(OrderAddress address)
+{
+	<legend>@address.AddressName Address</legend>
+	<div>@address.FirstName @address.LastName</div>
+	<div>@address.Line1</div>
+	<div>@address.Line2</div>	
+	<div>@address.PostalCode @address.City</div>
+	<div>@address.Country.Name</div>
+	<div>@address.EmailAddress</div>
+	<div>@address.PhoneNumber</div>
+	<div>@address.MobilePhoneNumber</div>
+}

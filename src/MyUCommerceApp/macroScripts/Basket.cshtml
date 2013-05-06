@@ -1,0 +1,59 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Api
+@using UCommerce
+@using UCommerce.EntitiesV2
+	
+@{
+	PurchaseOrder basket = TransactionLibrary.GetBasket().PurchaseOrder;
+}
+
+@{
+	if (Request.HttpMethod == "POST")
+	{
+		var loopyOrderLines = basket.OrderLines.ToList();
+		foreach (var orderLine in loopyOrderLines)
+		{
+			int qty = Convert.ToInt32(Request.Form["quantity_" + orderLine.OrderLineId]);
+			if (Request.Form["removeLineItem_" + orderLine.OrderLineId] != null)
+			{
+				qty = 0;
+			}
+
+			TransactionLibrary.UpdateLineItem(orderLine.OrderLineId, qty);
+		}
+	
+		TransactionLibrary.ExecuteBasketPipeline();
+	}
+}
+<form method="post">
+<table>
+	<tr>
+		<th>SKU</th>
+		<th>Name</th>
+		<th>Qty</th>
+		<th>Price</th>
+	</tr>
+	@foreach (OrderLine orderLine in basket.OrderLines)
+	{
+		var lineTotal = new Money(orderLine.Total.Value, basket.BillingCurrency);
+		string inputId = "quantity_" + orderLine.OrderLineId;
+		<tr>
+			<td>@orderLine.Sku</td>
+			<td>@orderLine.ProductName</td>
+			<td>
+				<input 
+					type="text"
+					class="quantity" 
+					name="@inputId"
+					value="@orderLine.Quantity"/>
+			</td>
+			<td>@lineTotal</td>
+			<td>
+				<input type="submit" value="x" name="removeLineItem_@{@orderLine.OrderLineId}"/>
+			</td>
+		</tr>
+	}
+</table>
+	<input type="submit" name="updateButton" value="Update basket"/>
+	<a href="shipping">Proceed to billing information</a>
+</form>
