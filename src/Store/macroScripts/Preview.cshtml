@@ -1,0 +1,20 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@{
+		
+	var order = Request.QueryString["orderGuid"] != null
+		? PurchaseOrder.SingleOrDefault(x => x.OrderGuid == new Guid(Request["orderGuid"]))
+		: TransactionLibrary.GetBasket().PurchaseOrder;
+	
+	if (IsPost)
+	{
+		TransactionLibrary.RequestPayments();
+		Response.Redirect("Confirmation");
+	}
+}
+
+<form method="post">
+@order.OrderTotal
+	<input type="submit" value="Confirm Order and Pay"/>
+</form>

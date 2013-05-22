@@ -1,0 +1,25 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Api
+@using UCommerce.Runtime
+@using UCommerce.Extensions
+	
+@{
+	var category = SiteContext.Current.CatalogContext.CurrentCategory;
+	var products = CatalogLibrary.GetProducts(category);
+}
+
+<h1>@category.DisplayName()</h1>
+<h2>@Html.Raw(category.Description())</h2>
+
+<div>
+@foreach (var product in products)
+{
+	<h3>@product.DisplayName()</h3>
+	<p>
+		@Html.Raw(product.ShortDescription())
+	</p>
+	@product.DynamicProperty().Brand
+		
+	<a href="Product?product=@product.ProductId">More info</a>
+}
+</div>

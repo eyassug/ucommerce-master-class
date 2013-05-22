@@ -1,0 +1,75 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Runtime
+@using UCommerce.Extensions
+@using UCommerce.Api
+
+<script>
+	$(function() {
+		$("#addToBasket").click(function() {
+			$.uCommerce.addToBasket({
+				sku: $("#sku").val(),
+				variantSku: $("#variantSku").val(),
+				quantity: 1
+			},
+			function() {alert("OK")},
+			function() {alert("Blimey!")}
+		   );
+		return false;
+		});
+	});
+</script>
+@{
+	if (IsPost)
+	{
+		string sku = Request.Form["sku"];
+		string variantSku = Request.Form["variantSku"];
+		
+		TransactionLibrary.AddToBasket(1, sku, variantSku);
+	}
+	
+	if (TransactionLibrary.HasBasket())
+	{
+		Response.Write(TransactionLibrary.GetBasket().PurchaseOrder.OrderLines.Sum(x => x.Quantity));
+	}
+
+	
+	var product = SiteContext.Current.CatalogContext.CurrentProduct;
+	
+	var relatedProducts = 
+		CatalogLibrary.GetRelatedProducts(product.ProductId)
+		.SelectMany(x => x.Value);
+	
+	var price = CatalogLibrary.CalculatePrice(product, SiteContext.Current.CatalogContext.CurrentCatalog);
+}
+
+<form method="post">
+	
+	<h1>
+		@product.DisplayName()
+	</h1>
+	<input type="hidden" value="@product.Sku" name="sku" id="sku"/>
+	@price.YourPrice.Amount
+	@if (product.ProductDefinition.IsProductFamily())
+	{
+		<select name="variantSku" id="variantSku">
+			@foreach (var variant in product.Variants)
+			{
+				<option>@variant.VariantSku</option>
+			}
+		</select>
+	}
+	<input type="submit" name="addToBasket" id="addToBasket" value="Add to basket"/>
+</form>
+	
+@if (relatedProducts.Any())
+{
+	<h3>You might also enjoy</h3>
+	foreach (var relatedProduct in relatedProducts)
+	{
+		<h4>@relatedProduct.DisplayName()</h4>
+		<a href="Product?product=@relatedProduct.ProductId">More info</a>
+	}
+
+}
+
+
