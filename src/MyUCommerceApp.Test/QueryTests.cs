@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Permissions;
 using NUnit.Framework;
 using Rhino.Mocks;
 using UCommerce.EntitiesV2;
@@ -21,7 +22,64 @@ namespace MyUCommerceApp.Test
 
 			using (var session = sessionProvider.GetSession())
 			{
-				var order = session.Query<PurchaseOrder>().First();
+				var product = session.Query<Product>().First();
+
+				var products = session.Query<Product>()
+					.Where(x => x.ProductProperties
+						.Any(y => y.ProductDefinitionField.Name == "ShowOnHomepage" && y.Value == "True"))
+						.ToList();
+			}
+		}
+
+		[Test]
+		public void JoinProductAndOrderLine()
+		{
+			var sessionProvider = GetSessionProvider();
+
+			using (var session = sessionProvider.GetSession())
+			{
+				var query = from orderline in session.Query<OrderLine>()
+					join product in session.Query<Product>()
+						on new { orderline.Sku, orderline.VariantSku }
+							equals new { product.Sku, product.VariantSku }
+					select product;
+
+				query.ToList();
+
+			}
+		}
+
+		[Test]
+		public void NPlus1()
+		{
+			var sessionProvider = GetSessionProvider();
+
+			using (var session = sessionProvider.GetSession())
+			{
+				var products = session.Query<Product>()
+					.FetchMany(x => x.ProductProperties)
+					.ThenFetch(x => x.ProductDefinitionField)
+					.ToList();
+
+				foreach (var product in products)
+				{
+					var props = product.ProductProperties;
+				}
+			}
+		}
+
+		[Test]
+		public void PrefetchWithHQL()
+		{
+			var sessionProvider = GetSessionProvider();
+
+			using (var session = sessionProvider.GetSession())
+			{
+				var products = session.CreateQuery(@"
+					select p
+					from Product p
+					join fetch p.ProductProperties")
+					.Future<Product>().ToList();
 			}
 		}
 
