@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Security.Permissions;
+using NHibernate.Exceptions;
 using NUnit.Framework;
 using Rhino.Mocks;
 using UCommerce.EntitiesV2;
@@ -14,6 +16,37 @@ namespace MyUCommerceApp.Test
 	public class QueryTests
 	{
 		private const string CONNECTIONSTRING = "Data Source=.;Initial Catalog=utraining;Integrated Security=true;";
+
+		[Test]
+		public void Baskets_And_Customers_Last_30_Days()
+		{
+			var sessionProvider = GetSessionProvider();
+
+			using (var session = sessionProvider.GetSession())
+			{
+				var query = session.Query<PurchaseOrder>()
+					.Where(
+							// Last 30 days
+							x => x.CreatedDate >= DateTime.Now.AddDays(-30)
+								// Basket status only
+								&& x.OrderStatus.OrderStatusId == 1
+								&& x.BillingAddress.EmailAddress != null)
+					.Fetch(x => x.BillingAddress)
+					.FetchMany(x => x.OrderLines);
+
+				foreach (var order in query.ToList())
+				{
+					string firstName = order.BillingAddress.FirstName;
+					string lastName = order.BillingAddress.LastName;
+					foreach (var orderline in order.OrderLines)
+					{
+						DateTime orderLineCreatedOn = orderline.CreatedOn;
+						string productName = orderline.ProductName;
+						int quantity = orderline.Quantity;
+					}
+				}
+			}
+		}
 
 		[Test]
 		public void Test()
@@ -39,10 +72,10 @@ namespace MyUCommerceApp.Test
 			using (var session = sessionProvider.GetSession())
 			{
 				var query = from orderline in session.Query<OrderLine>()
-					join product in session.Query<Product>()
-						on new { orderline.Sku, orderline.VariantSku }
-							equals new { product.Sku, product.VariantSku }
-					select product;
+							join product in session.Query<Product>()
+								on new { orderline.Sku, orderline.VariantSku }
+									equals new { product.Sku, product.VariantSku }
+							select product;
 
 				query.ToList();
 
