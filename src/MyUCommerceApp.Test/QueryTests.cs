@@ -25,6 +25,72 @@ namespace MyUCommerceApp.Test
 			}
 		}
 
+		[Test]
+		public void FindAllProductsForHomepage()
+		{
+			var sessionProvider = GetSessionProvider();
+
+			using (var session = sessionProvider.GetSession())
+			{
+				var products = session.Query<Product>()
+					.Where(x => 
+						x.ProductProperties.Any(
+						y => y.ProductDefinitionField.Name == "ShowOnHomepage" 
+							&& y.Value == "True"));
+			}		
+		}
+
+		[Test]
+		public void AdhocJoin()
+		{
+			var sessionProvider = GetSessionProvider();
+
+			using (var session = sessionProvider.GetSession())
+			{
+				var query = from orderline in session.Query<OrderLine>()
+					join product in session.Query<Product>() on
+						new {orderline.Sku, orderline.VariantSku} 
+						equals new { product.Sku, product.VariantSku}
+				select new {orderline, product};
+			}
+		}
+
+		[Test]
+		public void NPlus1()
+		{
+			var sessionProvider = GetSessionProvider();
+
+			using (var session = sessionProvider.GetSession())
+			{
+				var order = session.Query<PurchaseOrder>()
+					.Fetch(x => x.BillingAddress)
+					.FetchMany(x => x.OrderLines)
+						.ThenFetch(x => x.Shipment)
+					.First();
+				var address = order.BillingAddress;
+				var orderline = order.OrderLines;
+			}
+		}
+
+		[Test]
+		public void Hql()
+		{
+			var sessionProvider = GetSessionProvider();
+
+			using (var session = sessionProvider.GetSession())
+			{
+				var query = session.CreateQuery("from PurchaseOrder p")
+					.Future<PurchaseOrder>();
+
+				session.CreateQuery(@"from PurchaseOrder p
+									join fetch p.BillingAddress")
+					.Future<PurchaseOrder>();
+
+				var orders = query.ToList();
+			}			
+
+		}
+
 		private SessionProvider GetSessionProvider()
 		{
 			var commerceConfigProviderStub = MockRepository.GenerateStub<CommerceConfigurationProvider>();

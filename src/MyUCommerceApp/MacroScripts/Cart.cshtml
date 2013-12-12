@@ -1,0 +1,48 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Api
+@using UCommerce
+	
+	
+@{
+	var basket = TransactionLibrary.GetBasket().PurchaseOrder;
+}
+
+@{
+	if (IsPost)
+	{
+		foreach (var orderline in basket.OrderLines.ToList())
+		{
+			var newQty = Convert.ToInt32(Request.Form["quantity_" + orderline.OrderLineId.ToString()]);
+			TransactionLibrary.UpdateLineItem(orderline.OrderLineId, newQty);
+		}
+		
+		TransactionLibrary.ExecuteBasketPipeline();
+	
+	}
+}
+
+<form method="post">
+<table>
+	<tr>
+		<th>SKU</th>
+		<th>Name</th>
+		<th>Quantity</th>
+		<th>Total</th>
+	</tr>
+	
+	@foreach (var orderline in basket.OrderLines)
+	{
+		var orderLineTotal = new Money(orderline.Total.GetValueOrDefault(), basket.BillingCurrency);
+									   
+		<tr>
+			<td>@orderline.Sku</td>
+			<td>@orderline.ProductName</td>
+			<td><input type="text" value="@orderline.Quantity" name="quantity_@orderline.OrderLineId"/></td>
+			<td>@orderLineTotal</td>
+		</tr>
+	}
+	
+</table>
+	<input type="submit" value="Update cart"/>
+	<a href="billing.aspx">Enter billing information</a>
+</form>

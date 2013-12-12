@@ -1,0 +1,8 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Api	
+	
+@{
+	TransactionLibrary.RequestPayments();
+		
+	Response.Redirect("Confirmation");
+}

@@ -1,0 +1,27 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Runtime
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@using UCommerce.Extensions
+	
+@{
+	var category = SiteContext.Current.CatalogContext.CurrentCategory;
+	var catalog = SiteContext.Current.CatalogContext.CurrentCatalog;
+	var products = CatalogLibrary.GetProducts(category);
+}
+
+@foreach (var product in products)
+{
+	PriceCalculation price = CatalogLibrary.CalculatePrice(product, catalog);
+	
+	<div>
+		<h3>@product.DisplayName()</h3>
+		<p>@product.ShortDescription()</p>
+		@if (price.IsDiscounted)
+		{
+			<span style="text-decoration:line-through">@price.ListPrice.Amount</span>
+		}
+		<span>@price.YourPrice.Amount</span>
+		<a href="product.aspx?product=@product.ProductId">More info</a>
+	</div>
+}

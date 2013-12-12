@@ -1,0 +1,14 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Runtime
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@using UCommerce.Extensions
+	
+@{
+	var category = SiteContext.Current.CatalogContext.CurrentCategory;
+}
+
+<h1>@category.DisplayName()</h1>
+<h2>@category.Description()</h2>
+Variant: @category.DynamicProperty().Variant
+Invariant: @category.DynamicProperty().Invariant

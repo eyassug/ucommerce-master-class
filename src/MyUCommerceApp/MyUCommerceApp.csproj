@@ -45,12 +45,18 @@
     <Reference Include="UCommerce.Infrastructure">
       <HintPath>..\..\lib\uCommerce\UCommerce.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="UCommerce.Presentation">
+      <HintPath>..\..\lib\uCommerce\UCommerce.Presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\MyCatalogContext.cs" />
+    <Compile Include="ControlFactories\PriceGroupControlFactory.cs" />
+    <Compile Include="Pipelines\NofityOnVipCustomerTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Taxes\MyTaxService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pipelines\" />
     <Folder Include="Shipping\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
