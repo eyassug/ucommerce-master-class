@@ -12,7 +12,7 @@ namespace MyUCommerceApp.Test
 	[TestFixture]
 	public class QueryTests
 	{
-		private const string CONNECTIONSTRING = "Data Source=.;Initial Catalog=utraining;Integrated Security=true;";
+		private const string CONNECTIONSTRING = @"server=localhost\sqlexpress;database=Master-Class;user id=Master-Class;password=123";
 
 		[Test]
 		public void Test()
@@ -22,6 +22,76 @@ namespace MyUCommerceApp.Test
 			using (var session = sessionProvider.GetSession())
 			{
 				var order = session.Query<PurchaseOrder>().First();
+			}
+		}
+
+		[Test]
+		public void LamdaQuery()
+		{
+			var sessionProvider = GetSessionProvider();
+
+			using (var session = sessionProvider.GetSession())
+			{
+				var query = session.Query<Product>()
+					.Where(product => product.DisplayOnSite && product.AllowOrdering);
+				var products = query.ToList();
+			}
+		}
+
+		[Test]
+		public void LinqQuery()
+		{
+			var sessionProvider = GetSessionProvider();
+
+			using (var session = sessionProvider.GetSession())
+			{
+				var query = from line in session.Query<OrderLine>()
+					where line.Price > 10
+					join product in session.Query<Product>()
+						on new { line.Sku, line.VariantSku }
+						equals new { product.Sku, product.VariantSku }
+					select new { line, product };
+				
+				var orders = query.ToList();
+			}
+		}
+
+		[Test]
+		public void LinqPreFetchingQuery()
+		{
+			var sessionProvider = GetSessionProvider();
+
+			using (var session = sessionProvider.GetSession())
+			{
+				var query = session.Query<Product>()
+					.Fetch(x => x.ProductProperties);
+				var products = query.ToList();
+
+				foreach (var product in products)
+				{
+					string name = product.Name;
+
+					foreach (var property in product.ProductProperties)
+					{
+						string value = property.Value;
+					}
+				}
+			}
+		}
+
+		[Test]
+		public void HqlQuery()
+		{
+			var sessionProvider = GetSessionProvider();
+
+			using (var session = sessionProvider.GetSession())
+			{
+				var query = session
+						.CreateQuery(@"
+							select p from Product p
+							left join fetch p.Variants")
+						.Future<Product>();
+				var orders = query.ToList();
 			}
 		}
 

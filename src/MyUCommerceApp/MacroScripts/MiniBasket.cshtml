@@ -1,0 +1,28 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@using UCommerce.Runtime
+	@{
+		PurchaseOrder basket = null;
+		var currency = 
+			SiteContext.
+			Current.
+			CatalogContext.CurrentCatalog.PriceGroup.Currency;
+		
+		var orderTotal = new Money(0, currency);
+		if (TransactionLibrary.HasBasket())
+			{
+				basket = TransactionLibrary.GetBasket(false).PurchaseOrder;
+				if (basket.OrderTotal.HasValue) {
+					orderTotal = new Money(basket.OrderTotal.Value, currency);
+				}
+			}
+	}
+
+@if (basket == null || !basket.OrderLines.Any()) {
+	<a href="/" id="empty-cart">Your shopping cart is empty</a>
+ }
+else {
+	<a href="/cart"><span>@basket.OrderLines.Sum(x => x.Quantity).ToString() items in cart</span> <span>@orderTotal</span></a>	
+}

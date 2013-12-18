@@ -1,0 +1,44 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.Api
+@using UCommerce.Runtime
+@using UCommerce.Extensions
+	
+	@{
+		var catalog = SiteContext.Current.CatalogContext.CurrentCatalog;
+		var product = SiteContext.Current.CatalogContext.CurrentProduct;
+		var price = CatalogLibrary.CalculatePrice(product,catalog);
+		var currentPriceGroup = SiteContext.Current.CatalogContext.CurrentPriceGroup;
+	}
+@{
+	if (Request.HttpMethod == "POST") {
+		
+		string sku = Request.Form["sku"];
+		string variantSku = Request.Form["variantSku"];
+		
+		TransactionLibrary.AddToBasket(1,sku,variantSku);
+		
+		Response.Write("added "+sku+ " "+ variantSku); 
+	}
+
+}
+<h1>@catalog.Name</h1>
+
+<h1>@currentPriceGroup.Name</h1>
+
+<h1>@product.DisplayName()</h1>
+
+<span>@price.YourPrice.Amount</span>
+
+<form method="POST">
+	<input type="hidden" value="@product.Sku" name="sku" />
+	@if (product.ProductDefinition.IsProductFamily()) {
+		<select name="variantSku">
+			
+		@foreach (var variant in product.Variants) {
+			<option>@variant.VariantSku</option>
+		}
+		</select>
+			
+		<input type="submit" value="Add to basket"/>
+	}
+</form>

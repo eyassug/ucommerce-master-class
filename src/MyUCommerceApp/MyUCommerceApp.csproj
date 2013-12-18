@@ -45,13 +45,29 @@
     <Reference Include="UCommerce.Infrastructure">
       <HintPath>..\..\lib\uCommerce\UCommerce.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="UCommerce.Presentation">
+      <HintPath>..\..\lib\uCommerce\UCommerce.Presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Catalog\MyCatalogContext.cs" />
+    <Compile Include="DataTypes\PriceGroupControlFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pipelines\" />
     <Folder Include="Shipping\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MacroScripts\BasketPage.cshtml" />
+    <None Include="MacroScripts\CategoryDetails.cshtml" />
+    <None Include="MacroScripts\CategoryNavigation.cshtml" />
+    <None Include="MacroScripts\MiniBasket.cshtml" />
+    <None Include="MacroScripts\Payment.cshtml" />
+    <None Include="MacroScripts\PreviewInformation.cshtml" />
+    <None Include="MacroScripts\ProductDetails.cshtml" />
+    <None Include="MacroScripts\Shipping.cshtml" />
+    <None Include="MacroScripts\ShippingInformation.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
