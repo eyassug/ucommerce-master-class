@@ -67,11 +67,16 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UCommerce">
+    <Reference Include="UCommerce, Version=4.0.7.13340, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\uCommerce\UCommerce.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Infrastructure">
+    <Reference Include="UCommerce.Infrastructure, Version=4.0.7.13340, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\uCommerce\UCommerce.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.Presentation">
+      <HintPath>..\..\lib\uCommerce\UCommerce.Presentation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

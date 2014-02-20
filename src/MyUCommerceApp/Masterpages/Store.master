@@ -1,0 +1,18 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/umbraco/masterpages/default.master" AutoEventWireup="true" %>
+
+<asp:Content ContentPlaceHolderID="ContentPlaceHolderDefault" runat="server">
+
+<html>
+	<head>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+		<script src="/scripts/uCommerce.jQuery.js"></script>
+		<script src="/scripts/uCommerce.ServiceStack.js"></script>	
+	</head>
+	<body>
+		<a href="/cart">Go to cart</a>
+		<umbraco:Macro Alias="Mc_categoryDetails" runat="server"></umbraco:Macro>
+		<asp:ContentPlaceHolder ID="body" runat="server" />
+	</body>
+</html>
+	
+</asp:Content>

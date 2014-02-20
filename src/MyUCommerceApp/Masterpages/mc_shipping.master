@@ -1,0 +1,5 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/masterpages/Store.master" AutoEventWireup="true" %>
+
+<asp:Content ContentPlaceHolderID="Body" runat="server">
+<umbraco:Macro Alias="Mc_shipping" runat="server" />
+</asp:Content>
