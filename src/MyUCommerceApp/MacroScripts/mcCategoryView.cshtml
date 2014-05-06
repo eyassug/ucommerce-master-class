@@ -1,0 +1,17 @@
+﻿@inherits umbraco.MacroEngines.DynamicNodeContext
+@using UCommerce.EntitiesV2
+@using UCommerce.Api
+@using UCommerce.Extensions
+	
+@helper Display(ICollection<Category> categories) {
+	<ul>
+		@foreach (Category category in categories) {
+			<li>
+				<a href="Category?category=@category.CategoryId"> @category.DisplayName() </a>
+				@Display(category.Categories)
+			</li>
+		}
+	</ul>		
+}
+
+@Display(CatalogLibrary.GetRootCategories())

@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -45,12 +46,17 @@
     <Reference Include="UCommerce.Infrastructure">
       <HintPath>..\..\lib\uCommerce\UCommerce.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="UCommerce.Presentation">
+      <HintPath>..\..\..\..\inetpub\MasterClass\bin\UCommerce.Presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\MyCatalogContext.cs" />
+    <Compile Include="DataTypes\PriceGroupControlFactory.cs" />
+    <Compile Include="Pipelines\NotifyOnVipOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pipelines\" />
     <Folder Include="Shipping\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

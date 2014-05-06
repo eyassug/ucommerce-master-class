@@ -1,0 +1,29 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.EntitiesV2
+@using UCommerce.Api
+@using UCommerce.Extensions
+@using UCommerce.Runtime
+@{
+    Layout = "mcMaster.cshtml";
+	Category category = SiteContext.Current.CatalogContext.CurrentCategory;
+	ProductCatalog catalog = SiteContext.Current.CatalogContext.CurrentCatalog;
+	var products = CatalogLibrary.GetProducts(category);
+}
+
+<h1> @category.DisplayName() </h1>
+	
+<h2> @Html.Raw(category.Description()) </h2>
+
+	@foreach(var product in products) {
+		var price = CatalogLibrary.CalculatePrice(product,catalog);
+		<div style="border: 1px solid black; display: inline-block; float: left; margin: 10px;">
+			<h3>@product.DisplayName()</h3>
+			<p>
+				@product.ShortDescription() 
+			</p>
+			<div><span>Tax: @price.YourTax</span></div>
+			<div><span>Discount: @price.Discount.Amount</span></div>
+			<div><span>Total: @price.YourPrice.Amount</span></div>
+			<a href="Product?product=@product.ProductId">More info</a>
+		</div>
+	}

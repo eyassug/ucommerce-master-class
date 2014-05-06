@@ -1,0 +1,42 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@using UCommerce
+	
+@{
+	if (IsPost) {
+		TransactionLibrary.RequestPayments();
+		Response.Redirect("Confirm");
+	}
+	
+    Layout = "mcMaster.cshtml";
+	
+	var basket = TransactionLibrary.GetBasket().PurchaseOrder;
+	var billingAddress = basket.BillingAddress;
+	var shippingAddress = basket.GetShippingAddress("Shipment");
+	
+	var orderTotal = new Money(basket.OrderTotal.Value,basket.BillingCurrency);
+}
+
+@Display(billingAddress)
+@Display(shippingAddress)
+
+@helper Display(OrderAddress address)
+{
+	<div style="border: 1px solid black;">
+	<legend>@address.AddressName Address</legend>
+	<div>@address.FirstName @address.LastName</div>
+	<div>@address.Line1</div>
+	<div>@address.Line2</div>	
+	<div>@address.PostalCode @address.City</div>
+	<div>@address.Country.Name</div>
+	<div>@address.EmailAddress</div>
+	<div>@address.PhoneNumber</div>
+	<div>@address.MobilePhoneNumber</div>
+	</div>
+}
+
+<span>OrderTotal: @orderTotal</span>
+<form method="POST">
+	<input type="submit" value="purchase now!" />
+</form>

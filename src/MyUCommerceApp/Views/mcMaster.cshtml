@@ -1,0 +1,17 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+}
+
+
+<html>
+	<head>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+		<script src="/scripts/uCommerce.jQuery.js"></script>
+		<script src="/scripts/uCommerce.ServiceStack.js"></script>
+	</head>
+	<body>
+		@Umbraco.RenderMacro("McCategoryView")
+		@RenderBody()
+	</body>
+</html>
