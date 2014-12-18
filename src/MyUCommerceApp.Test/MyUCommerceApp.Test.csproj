@@ -78,6 +78,12 @@
     <Compile Include="QueryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyUCommerceApp\MyUCommerceApp.csproj">
+      <Project>{2c30d90d-410c-4d19-b43c-211132df3eb1}</Project>
+      <Name>MyUCommerceApp</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
