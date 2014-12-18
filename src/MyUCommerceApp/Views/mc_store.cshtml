@@ -1,0 +1,24 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+}
+
+
+<html>
+	<head>
+	</head>
+	<body>
+		<div style="text-align: center;">
+			<h1>My demo store</h1>
+			<a href="basket">Go to basket</a>
+		</div>
+		<div>
+			<div style="height: 100%; display: inline-block; width: 30%; vertical-align: top; border: 1px solid black;">
+				@Umbraco.RenderMacro("Mc_categoryNavigation")
+			</div>
+			<div style="height: 100%; display: inline-block; width: 65%; vertical-align: top; border: 1px solid black;">
+				@RenderBody()
+			</div>
+		</div>
+	</body>
+</html>

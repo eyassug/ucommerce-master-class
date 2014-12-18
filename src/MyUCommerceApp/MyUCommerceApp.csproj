@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\lib\NHibernate\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -48,11 +51,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CatalogContext\MyCatalogContext.cs" />
+    <Compile Include="Pipelines\NotifyOnVipOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\ProductsOnHomePageQuery.cs" />
+    <Compile Include="Shipping\QuantityShippingMethodService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pipelines\" />
-    <Folder Include="Shipping\" />
+    <None Include="Views\MacroPartials\mc_categoryNavigation.cshtml" />
+    <None Include="Views\mc_address.cshtml" />
+    <None Include="Views\mc_basket.cshtml" />
+    <None Include="Views\mc_category.cshtml" />
+    <None Include="Views\mc_Confirmation.cshtml" />
+    <None Include="Views\mc_frontpage.cshtml" />
+    <None Include="Views\mc_PaymentMethod.cshtml" />
+    <None Include="Views\mc_Preview.cshtml" />
+    <None Include="Views\mc_product.cshtml" />
+    <None Include="Views\mc_ShippingMethod.cshtml" />
+    <None Include="Views\mc_store.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

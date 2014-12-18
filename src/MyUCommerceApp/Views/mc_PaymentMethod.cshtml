@@ -1,0 +1,46 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@{
+    Layout = "mc_store.cshtml";
+}
+
+@{
+	if (Request.HttpMethod == "POST") {
+		int paymentMethodId = Convert.ToInt32(Request.Form["paymentMethod"]);
+		
+		TransactionLibrary.CreatePayment(paymentMethodId, -1, false, true);
+		TransactionLibrary.ExecuteBasketPipeline();
+		
+		Response.Redirect("Preview");
+	}
+}
+
+
+@{
+
+	var shipmentInformation = TransactionLibrary.GetShipmentInformation();
+	var paymentMethods = TransactionLibrary.GetPaymentMethods(shipmentInformation.Country);
+	
+	
+	var basket = TransactionLibrary.GetBasket().PurchaseOrder;
+	var payment = basket.Payments.FirstOrDefault();
+	
+	var selectedPaymentMethodId = payment != null ? payment.PaymentMethod.PaymentMethodId : 0;
+}
+
+<form method="POST">
+	
+	@foreach (var paymentMethod in paymentMethods) 
+	{
+		int paymentMethodId = paymentMethod.PaymentMethodId;
+		<input 
+			type="radio" 
+			name="paymentMethod" 
+			value="@paymentMethodId"
+			@(paymentMethodId == selectedPaymentMethodId ? "checked" : "") /> @paymentMethod.Name
+		<br>
+	}
+	<input type="submit" value ="Go to preview" />
+
+</form>

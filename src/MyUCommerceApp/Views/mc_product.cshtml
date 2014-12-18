@@ -1,0 +1,61 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using System.Linq
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@using UCommerce.Extensions
+@using UCommerce.Runtime
+@using System.Web
+@{
+    Layout = "mc_store.cshtml";
+}
+
+@{
+	var product = SiteContext.Current.CatalogContext.CurrentProduct;
+	var productCatalog = SiteContext.Current.CatalogContext.CurrentCatalog;
+    var price = CatalogLibrary.CalculatePrice(product, productCatalog);
+    var relatedProducts = CatalogLibrary.GetRelatedProducts(product.ProductId).SelectMany(x => x.Value);
+}
+
+
+@{ 
+	if (Request.HttpMethod == "POST") {
+		string sku = Request.Form["sku"];
+		string variantSku = Request.Form["variantSku"];
+		
+		TransactionLibrary.AddToBasket(1, sku, variantSku);
+		
+		Response.Write("Added: " +sku + " " + variantSku);
+	}
+}
+
+<h1>@product.DisplayName()</h1>
+	
+<span>@price.YourPrice.Amount.ToString()</span>
+
+<form method="POST">
+
+    <input type="hidden" name="sku" value="@product.Sku" />
+	
+    @if (product.ProductDefinition.IsProductFamily()) {
+        <select name="variantSku">
+            @foreach (var variant in product.Variants) 
+            {
+                <option value="@variant.VariantSku">@variant.VariantSku</option>
+            }
+        </select>
+    }
+
+    <input type="submit" value="Add to basket" />
+
+</form>
+
+@if (relatedProducts.Any())
+{
+    <h3>You might also like</h3>
+}
+@foreach (var relatedProduct in relatedProducts)
+{
+    <h4>@relatedProduct.DisplayName()</h4>
+    <a href="Product?product=@relatedProduct.ProductId">More info</a>
+
+}

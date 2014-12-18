@@ -1,0 +1,73 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.Api
+@using UCommerce
+@using UCommerce.EntitiesV2
+@{
+    Layout = "mc_store.cshtml";
+}
+
+@{
+	var basket = TransactionLibrary.GetBasket().PurchaseOrder;	
+	
+	if (IsPost) {
+		var loopyOrderLines = basket.OrderLines.ToList();
+		foreach (var orderLine in loopyOrderLines) {
+			int quantity = Convert.ToInt32(Request.Form["quantity_"+orderLine.OrderLineId]);
+			var newQuantity = quantity;
+			
+			if (Request.Form["remove_"+orderLine.OrderLineId] != null) 
+			{
+				newQuantity = 0;
+			}
+			
+			TransactionLibrary.UpdateLineItem(orderLine.OrderLineId,newQuantity);
+		}
+		
+		TransactionLibrary.ExecuteBasketPipeline();
+	}
+	
+	var orderTotal = new Money(basket.OrderTotal.Value, basket.BillingCurrency);
+}
+<form method="POST">
+<table>
+	<thead>
+		<tr>
+			<th>Sku</th>
+			<th>Quanity</th>
+			<th>Price</th>
+			<th>VAT</th>
+			<th>Total</th>
+			<th>Remove</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var orderLine in basket.OrderLines) 
+		{
+			var orderLinePrice = new Money(orderLine.Price,basket.BillingCurrency);
+			var orderLineVat = new Money(orderLine.VAT,basket.BillingCurrency);
+			var orderLineTotal = new Money(orderLine.Total.Value,basket.BillingCurrency);
+			<tr>
+				<td>@orderLine.Sku</td>
+				<td><input type="text" id="quantity_@orderLine.OrderLineId" name="quantity_@orderLine.OrderLineId" value="@orderLine.Quantity" /></td>
+				<td>@orderLinePrice</td>
+				<td>@orderLineVat</td>
+				<td>@orderLineTotal</td>
+				<td><input type="submit" id="remove_@orderLine.OrderLineId" name="remove_@orderLine.OrderLineId" value="X"></td>
+			</tr>
+		}
+	<tbody>
+	<tfoot>
+		<tr>
+			<td>Order total</td>
+			<td colspan="3">
+			</td>
+			<td>
+				@orderTotal
+			</td>
+		</tr>
+	</tfoot>
+</table>
+<input type="submit" value="Update" />	
+</form>
+
+<a href="address">Proceed to checkout</a>
