@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
 using UCommerce.EntitiesV2;
@@ -12,7 +13,7 @@ namespace MyUCommerceApp.Test
 	[TestFixture]
 	public class QueryTests
 	{
-		private const string CONNECTIONSTRING = "Data Source=.;Initial Catalog=utraining;Integrated Security=true;";
+		private const string CONNECTIONSTRING = "Data Source=.;Initial Catalog=u6;Integrated Security=true;";
 
 		[Test]
 		public void Test()
@@ -33,7 +34,7 @@ namespace MyUCommerceApp.Test
 				.Return(new RuntimeConfigurationSection
 				{
 					EnableCache = true,
-					CacheProvider = "NHibernate.Caches.SysCache2.SysCacheProvider, NHibernate.Caches.SysCache2",
+					CacheProvider = "NHibernate.Caches.SysCache.SysCacheProvider, NHibernate.Caches.SysCache",
 					ConnectionString = CONNECTIONSTRING
 				});
 
@@ -41,7 +42,7 @@ namespace MyUCommerceApp.Test
 			userServiceStub.Stub(x => x.GetCurrentUser()).Return(new User("system"));
 			userServiceStub.Stub(x => x.GetCurrentUserName()).Return("system");
 
-			var sessionProvider = new SessionProvider(commerceConfigProviderStub, userServiceStub);
+			var sessionProvider = new SessionProvider(commerceConfigProviderStub, userServiceStub, new List<IContainsNHibernateMappingsTag>());
 
 			return sessionProvider;
 		}
