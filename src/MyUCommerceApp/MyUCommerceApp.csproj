@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\lib\NHibernate\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -48,7 +51,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Integration\InMemoryCommerceConfigurationProvider.cs" />
+    <Compile Include="Integration\SingleUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\LatestOrderQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pipelines\" />
