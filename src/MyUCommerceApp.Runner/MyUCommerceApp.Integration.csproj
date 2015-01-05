@@ -82,37 +82,37 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Umbraco\ucommerce\Configuration\Components.config">
+    <None Include="ucommerce\Configuration\Components.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Umbraco\ucommerce\Configuration\Core.config">
+    <None Include="ucommerce\Configuration\Core.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Umbraco\ucommerce\Configuration\Custom.config">
+    <None Include="ucommerce\Configuration\Custom.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Umbraco\ucommerce\Configuration\DataTypes.config">
+    <None Include="ucommerce\Configuration\DataTypes.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Umbraco\ucommerce\Configuration\Marketing.config">
+    <None Include="ucommerce\Configuration\Marketing.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Umbraco\ucommerce\Configuration\Payments.config">
+    <None Include="ucommerce\Configuration\Payments.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Umbraco\ucommerce\Configuration\Presenters.config">
+    <None Include="ucommerce\Configuration\Presenters.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Umbraco\ucommerce\Configuration\Runner.config">
+    <None Include="ucommerce\Configuration\Runner.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Umbraco\ucommerce\Configuration\Search.config">
+    <None Include="ucommerce\Configuration\Search.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Umbraco\ucommerce\Configuration\Shipping.config">
+    <None Include="ucommerce\Configuration\Shipping.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Umbraco\ucommerce\Pipelines\Basket.config">
+    <None Include="ucommerce\Pipelines\Basket.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
