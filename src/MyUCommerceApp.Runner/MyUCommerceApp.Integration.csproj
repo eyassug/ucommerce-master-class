@@ -103,9 +103,6 @@
     <None Include="ucommerce\Configuration\Presenters.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ucommerce\Configuration\Runner.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="ucommerce\Configuration\Search.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
