@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using NHibernate;
 using NHibernate.Linq;
 using UCommerce.EntitiesV2;
 using UCommerce.EntitiesV2.Queries;
 
-namespace MyUCommerceApp.Queries
+namespace MyUCommerceApp.BusinessLogic.Queries
 {
 	public class LatestOrderQuery : ICannedQuery<PurchaseOrder>
 	{

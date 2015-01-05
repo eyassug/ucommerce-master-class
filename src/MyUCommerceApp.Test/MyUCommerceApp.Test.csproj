@@ -79,9 +79,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyUCommerceApp\MyUCommerceApp.csproj">
+    <ProjectReference Include="..\MyUCommerceApp\MyUCommerceApp.BusinessLogic.csproj">
       <Project>{2c30d90d-410c-4d19-b43c-211132df3eb1}</Project>
-      <Name>MyUCommerceApp</Name>
+      <Name>MyUCommerceApp.BusinessLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

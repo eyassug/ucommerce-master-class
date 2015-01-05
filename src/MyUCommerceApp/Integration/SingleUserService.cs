@@ -6,7 +6,7 @@ using System.Text;
 using UCommerce.EntitiesV2;
 using UCommerce.Security;
 
-namespace MyUCommerceApp.Integration
+namespace MyUCommerceApp.BusinessLogic.Integration
 {
 	public class SingleUserService : IUserService
 	{

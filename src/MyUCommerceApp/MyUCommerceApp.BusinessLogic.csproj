@@ -8,8 +8,8 @@
     <ProjectGuid>{2C30D90D-410C-4D19-B43C-211132DF3EB1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyUCommerceApp</RootNamespace>
-    <AssemblyName>MyUCommerceApp</AssemblyName>
+    <RootNamespace>MyUCommerceApp.BusinessLogic</RootNamespace>
+    <AssemblyName>MyUCommerceApp.BusinessLogic</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

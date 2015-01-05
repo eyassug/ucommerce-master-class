@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyUCommerceApp.Queries;
+﻿using System.Linq;
+using MyUCommerceApp.BusinessLogic.Queries;
 using UCommerce.EntitiesV2;
 using UCommerce.Infrastructure;
 
-namespace MyUCommerceApp.Runner
+namespace MyUCommerceApp.Integration
 {
 	class Program
 	{

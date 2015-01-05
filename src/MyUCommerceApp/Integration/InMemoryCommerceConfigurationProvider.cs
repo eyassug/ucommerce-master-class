@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UCommerce.Infrastructure.Configuration;
+﻿using UCommerce.Infrastructure.Configuration;
 
-namespace MyUCommerceApp.Integration
+namespace MyUCommerceApp.BusinessLogic.Integration
 {
 	public class InMemoryCommerceConfigurationProvider : CommerceConfigurationProvider
 	{
