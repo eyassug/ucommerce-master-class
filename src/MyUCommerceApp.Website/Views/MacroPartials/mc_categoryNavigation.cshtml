@@ -1,0 +1,23 @@
+@inherits Umbraco.Web.Macros.PartialViewMacroPage
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@using UCommerce.Extensions
+	
+@helper Display(ICollection<UCommerce.EntitiesV2.Category> categories)
+{
+	if(categories.Any()) 
+	{
+		<ul>
+			
+			@foreach(Category category in categories) 
+			{
+				<li>
+					<a href="Category?category=@category.CategoryId">@category.DisplayName()</a>
+				</li>
+				@Display(CatalogLibrary.GetCategories(category))	
+			}
+		</ul>
+	}
+}
+
+@Display(CatalogLibrary.GetRootCategories())

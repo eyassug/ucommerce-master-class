@@ -1,0 +1,27 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.Api
+@using UCommerce.Runtime
+@using UCommerce.Extensions
+@{
+    Layout = "mc_store.cshtml";
+}
+
+@{
+	var category = SiteContext.Current.CatalogContext.CurrentCategory;
+	var products = CatalogLibrary.GetProducts(category);	
+	var info = category.DynamicProperty<string>().AdditionalInfo;
+}
+
+<h1>@category.DisplayName()</h1>
+<p>@info</p>
+
+@foreach (var product in products) 
+{
+	var price = CatalogLibrary.CalculatePrice(product);
+	<div>
+		<h3>@product.DisplayName()</h3>
+		<p>@product.ShortDescription()</p>
+		<p>Your price: @price.YourPrice.Amount</p>
+		<a href="Product?product=@product.ProductId">More info</a>
+	</div>
+}

@@ -1,0 +1,112 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@{
+    Layout = "mc_store.cshtml";
+}
+
+@{
+	if (Request.HttpMethod == "POST") {
+TransactionLibrary.EditBillingInformation(
+                        Request.Form["Billing-firstName"],
+                        Request.Form["Billing-lastName"],
+                        Request.Form["Billing-email"],
+                        Request.Form["Billing-phone"],
+                        Request.Form["Billing-mobilephone"],
+                        Request.Form["Billing-company"],
+                        Request.Form["Billing-line1"],
+                        Request.Form["Billing-line2"],
+                        Request.Form["Billing-postalCode"],
+                        Request.Form["Billing-city"],
+                        Request.Form["Billing-state"],
+                        Request.Form["Billing-attention"],
+                        Convert.ToInt32(Request.Form["Billing-country"]));
+               
+                TransactionLibrary.EditShippingInformation(
+                        Request.Form["Shipment-firstName"],
+                        Request.Form["Shipment-lastName"],
+                        Request.Form["Shipment-email"],
+                        Request.Form["Shipment-phone"],
+                        Request.Form["Shipment-mobilephone"],
+                        Request.Form["Shipment-company"],
+                        Request.Form["Shipment-line1"],
+                        Request.Form["Shipment-line2"],
+                        Request.Form["Shipment-postalCode"],
+                        Request.Form["Shipment-city"],
+                        Request.Form["Shipment-state"],
+                        Request.Form["Shipment-attention"],
+                        Convert.ToInt32(Request.Form["Shipment-country"]));
+ 
+                Response.Redirect("Shipping");
+	}
+}
+
+
+@{
+	var basket = TransactionLibrary.GetBasket().PurchaseOrder;
+	
+	var billingAddress = TransactionLibrary.GetBillingInformation();
+	billingAddress.AddressName = "Billing";
+	var shipmentAddress = TransactionLibrary.GetShippingInformation();
+	shipmentAddress.AddressName = "Shipment";
+	
+}
+
+<form method="POST">
+	@EditorFor(billingAddress)
+	@EditorFor(shipmentAddress)
+	<input type="submit" value="Continue to shipping" />
+</form>
+
+@helper EditorFor(OrderAddress address)
+{
+	string prefix = address.AddressName;
+
+	<legend>@prefix address</legend>
+	<div>
+		<label>Name</label>
+		<input type="text" name="@prefix-firstName" value="@address.FirstName" />
+		<input type="text" name="@prefix-lastName" value="@address.LastName" />
+	</div>
+	<div>
+		<label>E-mail</label>
+		<input type="text" name="@prefix-email" value="@address.EmailAddress"/>
+	</div>
+	<div>
+		<label>Company</label>
+		<input type="text" name="@prefix-company" value="@address.CompanyName"/>
+	</div>
+	<div>
+		<label>Street</label>
+		<input type="text" name="@prefix-line1" value="@address.Line1"/>
+	</div>
+	<div>
+		<label>Street 2</label>
+		<input type="text" name="@prefix-line2" value="@address.Line2"/>
+	</div>
+	<div>
+		<label>City</label>
+		<input type="text" name="@prefix-city" value="@address.City"/>
+	</div>
+	<div>
+		<label>Postal code</label>
+		<input type="text" name="@prefix-postalcode" value="@address.PostalCode"/>
+	</div>
+	<div>
+		<label>Country</label>
+		<select name="@prefix-country">
+		@foreach (var country in Country.All().ToList())
+		{
+			<option value="@country.CountryId">@country.Name</option>
+		}
+		</select>
+	</div>
+	<div>
+		<label>Phone</label>
+		<input type="text" name="@prefix-phone" value="@address.PhoneNumber"/>
+	</div>
+	<div>
+		<label>Mobile phone</label>
+		<input type="text" name="@prefix-mobilephone" value="@address.MobilePhoneNumber"/>
+	</div>			
+}

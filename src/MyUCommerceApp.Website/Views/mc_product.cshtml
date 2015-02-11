@@ -1,0 +1,48 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.Api
+@using UCommerce.Runtime
+@using UCommerce.Extensions
+@{
+    Layout = "mc_store.cshtml";
+}
+
+@{
+	if (Request.HttpMethod == "POST") {
+		string sku = Request.Form["sku"];
+		string variantSku = Request.Form["variantSku"];
+				
+		TransactionLibrary.AddToBasket(1,sku,variantSku);
+		
+		Response.Write("Added " + sku + " "+ variantSku);
+	}
+}
+
+@{
+	var product = SiteContext.Current.CatalogContext.CurrentProduct;
+	var catalog = SiteContext.Current.CatalogContext.CurrentCatalog;
+	var price = CatalogLibrary.CalculatePrice(product,catalog);	
+	bool showOnHomePage = product.DynamicProperty<bool>().ShowOnHomepage;
+}
+@if(showOnHomePage) {
+	<span>This product is also showed on the frontpage</span>	
+}
+<h1>@product.DisplayName()</h1>
+
+<h3>The price of the product is:</h3>
+<p><span>@price.YourPrice.Amount</span><p>
+
+<form method="POST">
+	
+<input type="hidden" name="sku" value="@product.Sku" />
+	
+@if (product.ProductDefinition.IsProductFamily()) {
+	<select name="variantSku">
+		@foreach(var variant in product.Variants) {
+			<option value="@product.VariantSku">@variant.VariantSku</option>
+		}
+	</select>
+}
+
+<input type="submit" value="Add to basket" />
+</form>
+	
