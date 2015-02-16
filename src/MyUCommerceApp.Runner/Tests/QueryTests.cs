@@ -15,7 +15,7 @@ namespace MyUCommerceApp.Integration.Tests
 	[TestFixture]
 	public class QueryTests
 	{
-		private const string CONNECTIONSTRING = "Data Source=.;Initial Catalog=u6;Integrated Security=true;";
+		private const string CONNECTIONSTRING = "server=.;Initial Catalog=u6;Integrated Security=true;";
 
 		[Test]
 		public void Test()
