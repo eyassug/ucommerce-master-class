@@ -49,26 +49,34 @@
     <Reference Include="UCommerce.Infrastructure">
       <HintPath>..\..\lib\uCommerce\UCommerce.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="UCommerce.Presentation">
+      <HintPath>..\..\lib\uCommerce\UCommerce.Presentation.dll</HintPath>
+    </Reference>
     <Reference Include="UCommerce.Web.Api">
       <HintPath>..\..\lib\uCommerce\UCommerce.Web.Api.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datatypes\PriceGroupControlFactory.cs" />
+    <Compile Include="Integration\IErpConnector.cs" />
+    <Compile Include="Integration\Impl\ErpConnector.cs" />
     <Compile Include="Integration\InMemoryCommerceConfigurationProvider.cs" />
     <Compile Include="Integration\SingleUserService.cs" />
     <Compile Include="NhibernateMappings\NHibernateMappingTag.cs" />
+    <Compile Include="Pipelines\Checkout\ExportOrderToErpSystem.cs" />
+    <Compile Include="Pricing\ExtendedTaxService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\LatestOrderQuery.cs" />
     <Compile Include="Queries\OrderViewQuery.cs" />
     <Compile Include="Queries\ProductsByPropertiesQuery.cs" />
     <Compile Include="Queries\ProductsWithVariantsQuery.cs" />
     <Compile Include="Queries\ViewModel\OrderView.cs" />
+    <Compile Include="Shipping\QuantityShippingService.cs" />
+    <Compile Include="Sitecontext\ExtendedCatalogContext.cs" />
     <Compile Include="WebServices\WebServiceTag.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NhibernateMappings\Maps\" />
-    <Folder Include="Pipelines\" />
-    <Folder Include="Shipping\" />
     <Folder Include="WebServices\Impl\" />
     <Folder Include="WebServices\Model\" />
   </ItemGroup>
