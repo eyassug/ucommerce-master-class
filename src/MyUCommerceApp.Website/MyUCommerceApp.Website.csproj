@@ -90,7 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Umbraco\ucommerce\Configuration\Custom.config">
+    <Content Include="Umbraco\ucommerce\Apps\Master Class\AssemblyTags.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -107,8 +107,9 @@
     <Content Include="App_Code\Addresses.cshtml" />
     <Content Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Content Include="Views\MacroPartials\Test.cshtml" />
+    <Content Include="Umbraco\ucommerce\Apps\Master Class\Master Class.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
