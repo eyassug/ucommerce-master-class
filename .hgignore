@@ -28,3 +28,5 @@ _ReSharper*
 *.ReSharper
 *.orig
 ._*
+.vs
+packages
