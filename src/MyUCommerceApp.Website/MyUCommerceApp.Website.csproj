@@ -92,6 +92,7 @@
   <ItemGroup>
     <Content Include="Umbraco\ucommerce\Apps\Master Class\AssemblyTags.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -107,9 +108,17 @@
     <Content Include="App_Code\Addresses.cshtml" />
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Umbraco\ucommerce\Apps\Master Class\Master Class.config" />
+    <Content Include="Umbraco\ucommerce\Apps\MyCatalogContext\MyCatalogContext.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Umbraco\ucommerce\Apps\Notify On VIP Basket\NotifyOnVipBasket.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
