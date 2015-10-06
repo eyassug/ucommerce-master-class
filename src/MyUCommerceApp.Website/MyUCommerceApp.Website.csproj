@@ -107,9 +107,11 @@
     <Content Include="App_Code\Addresses.cshtml" />
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Umbraco\ucommerce\Apps\Master Class\Master Class.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
