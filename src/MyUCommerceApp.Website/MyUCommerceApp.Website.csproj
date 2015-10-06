@@ -86,7 +86,6 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="UCommerce">
       <HintPath>..\..\lib\uCommerce\UCommerce.dll</HintPath>
-      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
