@@ -98,6 +98,7 @@
     </None>
     <None Include="ucommerce\Configuration\Custom.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="ucommerce\Configuration\DataTypes.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
