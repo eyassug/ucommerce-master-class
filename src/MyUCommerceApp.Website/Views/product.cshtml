@@ -1,0 +1,52 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.Api
+@using UCommerce.Runtime
+@using UCommerce.Extensions
+@using System.Web
+@{
+    Layout = "Store.cshtml";
+
+    UCommerce.EntitiesV2.ProductCatalog catalog = UCommerce.Runtime.SiteContext.Current.CatalogContext.CurrentCatalog;
+    UCommerce.EntitiesV2.Product product = UCommerce.Runtime.SiteContext.Current.CatalogContext.CurrentProduct;
+
+    var price = UCommerce.Api.CatalogLibrary.CalculatePrice(product, catalog);
+
+    var campaignItems = UCommerce.Api.MarketingLibrary.GetTargetedCampaignItems();
+
+    foreach (var campaignItem in campaignItems)
+    {
+        var description = campaignItem.DynamicProperty<string>().Description;
+    }
+}
+
+@{
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        string sku = HttpContext.Current.Request.Form["sku"];
+        string variantSku = HttpContext.Current.Request.Form["variantSku"];
+        
+        UCommerce.Api.TransactionLibrary.AddToBasket(1,sku,variantSku);
+        
+        HttpContext.Current.Response.Write("Added to basket!");
+    }
+}
+
+<form method="POST">
+    <h1>@product.DisplayName()</h1>
+    
+    <input type="hidden" value="@product.Sku" name="sku"/>
+    
+    <span>@price.YourPrice.Amount</span>
+    
+    @if (product.ProductDefinition.IsProductFamily())
+    {
+        <select name="variantSku">
+            @foreach (UCommerce.EntitiesV2.Product variant in product.Variants)
+            {
+                <option value="@variant.VariantSku">@variant.VariantSku</option>
+            }
+        </select>
+    }
+    
+    <input type="submit" value="Add to basket" />
+</form>

@@ -1,0 +1,67 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@using System.Web
+
+@{
+    UCommerce.EntitiesV2.PurchaseOrder basket = UCommerce.Api.TransactionLibrary.GetBasket().PurchaseOrder;
+    
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        var loopyOrderLines = basket.OrderLines.ToList();
+        foreach (OrderLine loopyOrderLine in loopyOrderLines)
+        {
+            string qty = HttpContext.Current.Request.Form["quantityInput_" + loopyOrderLine.OrderLineId];
+            int quantity = Convert.ToInt32(qty);
+
+            if (HttpContext.Current.Request.Form["removeButton_" + loopyOrderLine.OrderLineId] != null)
+            {
+                quantity = 0;
+            }
+            
+            UCommerce.Api.TransactionLibrary.UpdateLineItem(loopyOrderLine.OrderLineId,quantity);
+        }
+        
+        UCommerce.Api.TransactionLibrary.ExecuteBasketPipeline();
+    }
+}
+
+
+@{
+    Layout = "Store.cshtml";
+
+    var orderTotal = new Money(basket.OrderTotal.GetValueOrDefault(), basket.BillingCurrency);
+}
+
+<h1>Review your order!</h1>
+
+<form method="POST">
+    <table>
+        <tr>
+            <th>SKU</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Remove</th>
+        </tr>
+        @foreach (UCommerce.EntitiesV2.OrderLine orderLine in basket.OrderLines)
+        {
+            var lineTotal = new Money(orderLine.Total.GetValueOrDefault(), orderLine.PurchaseOrder.BillingCurrency);
+            <tr>
+                <td>@orderLine.Sku</td>
+                <td>@orderLine.ProductName</td>
+                <td><input name="quantityInput_@orderLine.OrderLineId" value="@orderLine.Quantity"/></td>
+                <td>@lineTotal</td>
+                <td><input type="submit" name="removeButton_@orderLine.OrderLineId" value="x"/></td>
+            </tr>
+        }
+        
+        <tr>
+            <td colspan="3">Order total:</td>
+            <td>@orderTotal</td>
+        </tr>
+    </table>
+    
+    <input type="submit" name="submitChanges" value="Update"/>
+</form>

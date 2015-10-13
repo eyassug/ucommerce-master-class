@@ -1,0 +1,17 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.Api
+@using UCommerce.EntitiesV2    
+
+@{
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        @Addresses.SaveAddressInfo()
+    
+        UCommerce.Api.TransactionLibrary.ExecuteBasketPipeline();
+    }
+}
+
+
+@Addresses.EditorFor(UCommerce.Api.TransactionLibrary.GetBillingInformation())
+
+@Addresses.EditorFor(UCommerce.Api.TransactionLibrary.GetShippingInformation())

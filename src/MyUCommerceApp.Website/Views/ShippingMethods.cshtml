@@ -1,0 +1,20 @@
+﻿@{
+    var shippingCountry = UCommerce.Api.TransactionLibrary.GetShippingInformation().Country;
+    var shippingMethods = UCommerce.Api.TransactionLibrary.GetShippingMethods(shippingCountry);
+    
+    
+}
+
+
+@{
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        int shippingMethodId = 5;
+        UCommerce.Api.TransactionLibrary.CreateShipment(
+            shippingMethodId,
+            overwriteExisting: true);
+        
+        UCommerce.Api.TransactionLibrary.ExecuteBasketPipeline();
+    }
+}
+

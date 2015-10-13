@@ -1,0 +1,21 @@
+﻿@{
+    var shippingCountry = UCommerce.Api.TransactionLibrary.GetShippingInformation().Country;
+
+    var paymentMethods = UCommerce.Api.TransactionLibrary.GetPaymentMethods(shippingCountry);
+
+    var basket = UCommerce.Api.TransactionLibrary.GetBasket().PurchaseOrder;
+    
+    
+}
+
+@{
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        UCommerce.Api.TransactionLibrary.CreatePayment(
+            12,
+            requestPayment: false,
+            overwriteExisting: true);
+        
+        UCommerce.Api.TransactionLibrary.ExecuteBasketPipeline();
+    }
+}

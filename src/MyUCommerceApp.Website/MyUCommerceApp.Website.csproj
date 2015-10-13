@@ -107,12 +107,29 @@
     <Content Include="App_Code\Addresses.cshtml" />
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\product.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Navigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\category.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\basket.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ShippingDetails.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ShippingMethods.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PaymentMethods.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Preview.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
