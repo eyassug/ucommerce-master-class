@@ -131,6 +131,18 @@
   <ItemGroup>
     <Content Include="Views\Preview.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Umbraco\ucommerce\Apps\SiteContext.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Umbraco\ucommerce\Apps\Master Class\VipEmail.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Umbraco\ucommerce\Apps\Master Class\controls.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Umbraco\ucommerce\Apps\Master Class\Pricing.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
