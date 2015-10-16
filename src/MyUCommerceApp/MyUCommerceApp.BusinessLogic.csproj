@@ -64,7 +64,9 @@
   <ItemGroup>
     <Folder Include="NhibernateMappings\Maps\" />
     <Folder Include="Pipelines\" />
+    <Folder Include="Pricing\" />
     <Folder Include="Shipping\" />
+    <Folder Include="SiteContext\" />
     <Folder Include="WebServices\Impl\" />
     <Folder Include="WebServices\Model\" />
   </ItemGroup>
