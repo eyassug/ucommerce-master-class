@@ -4,11 +4,11 @@ namespace MyUCommerceApp.BusinessLogic.Integration
 {
 	public class InMemoryCommerceConfigurationProvider : CommerceConfigurationProvider
 	{
-		private readonly string _conncetionString;
+		private readonly string _connectionString;
 
-		public InMemoryCommerceConfigurationProvider(string conncetionString)
+		public InMemoryCommerceConfigurationProvider(string connectionString)
 		{
-			_conncetionString = conncetionString;
+			_connectionString = connectionString;
 		}
 
 		public override RuntimeConfigurationSection GetRuntimeConfiguration()
@@ -17,7 +17,7 @@ namespace MyUCommerceApp.BusinessLogic.Integration
 			{
 				EnableCache = true,
 				CacheProvider = "NHibernate.Caches.SysCache.SysCacheProvider, NHibernate.Caches.SysCache",
-				ConnectionString = _conncetionString
+				ConnectionString = _connectionString
 			};
 		}
 	}
