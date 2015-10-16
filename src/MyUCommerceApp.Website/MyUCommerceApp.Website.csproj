@@ -107,9 +107,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Umbraco\ucommerce\Apps\Master Class\Master Class.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Views\" />
   </ItemGroup>
   <PropertyGroup>
