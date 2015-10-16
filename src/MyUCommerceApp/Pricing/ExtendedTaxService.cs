@@ -27,6 +27,9 @@ namespace MyUCommerceApp.BusinessLogic.Pricing
 			if (field == null)
 				return base.CalculateTax(product, priceGroup, unitPrice);
 
+			if (string.IsNullOrWhiteSpace(field.GetValue().ToString()))
+				return base.CalculateTax(product, priceGroup, unitPrice);
+
 			var priceGroupForProduct = _priceGroupRepository.Select(x => x.PriceGroupId == Convert.ToInt32(field.GetValue())).FirstOrDefault();
 			if (priceGroupForProduct == null)
 				return base.CalculateTax(product, priceGroup, unitPrice);

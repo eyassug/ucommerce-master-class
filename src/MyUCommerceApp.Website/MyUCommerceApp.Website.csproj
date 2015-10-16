@@ -141,7 +141,9 @@
     <Content Include="Umbraco\ucommerce\Apps\Master Class\controls.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Umbraco\ucommerce\Apps\Master Class\Pricing.config" />
+    <Content Include="Umbraco\ucommerce\Apps\Master Class\Pricing.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
