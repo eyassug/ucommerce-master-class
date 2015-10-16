@@ -45,12 +45,15 @@
     <Reference Include="System.Xml" />
     <Reference Include="UCommerce">
       <HintPath>..\..\lib\uCommerce\UCommerce.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="UCommerce.Infrastructure">
       <HintPath>..\..\lib\uCommerce\UCommerce.Infrastructure.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="UCommerce.Web.Api">
       <HintPath>..\..\lib\uCommerce\UCommerce.Web.Api.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
