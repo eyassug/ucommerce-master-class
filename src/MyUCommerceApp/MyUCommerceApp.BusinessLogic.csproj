@@ -43,13 +43,13 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UCommerce">
-      <HintPath>..\..\lib\uCommerce\UCommerce.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="UCommerce.Infrastructure">
       <HintPath>..\..\lib\uCommerce\UCommerce.Infrastructure.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="UCommerce.Presentation, Version=6.8.2.15287, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\uCommerce\UCommerce.Presentation.dll</HintPath>
     </Reference>
     <Reference Include="UCommerce.Web.Api">
       <HintPath>..\..\lib\uCommerce\UCommerce.Web.Api.dll</HintPath>
