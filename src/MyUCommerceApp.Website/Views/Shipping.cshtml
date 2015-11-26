@@ -1,0 +1,31 @@
+﻿@using UCommerce.Api
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Store.cshtml";
+
+    var country = TransactionLibrary.GetShippingInformation().Country;
+    var shippingMethods = TransactionLibrary.GetShippingMethods(country);
+    var shipment = TransactionLibrary.GetBasket().PurchaseOrder.Shipments.FirstOrDefault();
+    var selectedShippingMethodId = shipment != null ? shipment.ShippingMethod.ShippingMethodId : 0;
+
+    var request = HttpContext.Current.Request;
+    if (request.HttpMethod == "POST")
+    {
+        int shippingMethodId = int.Parse(request.Form["shippingMethod"]);
+        TransactionLibrary.CreateShipment(shippingMethodId, "Shipment", true);
+        TransactionLibrary.ExecuteBasketPipeline();
+
+        HttpContext.Current.Response.Redirect("payment");
+    }
+}
+
+
+<form method="POST">
+    @foreach (var shippingMethod in shippingMethods)
+    {
+        <div>
+            <input type="radio" name="shippingMethod" @(selectedShippingMethodId == shippingMethod.ShippingMethodId ? "checked" : string.Empty) value="@shippingMethod.ShippingMethodId" />@shippingMethod.Name
+        </div>
+    }
+    <input type="Submit" value="Continue to payment"/>
+</form>

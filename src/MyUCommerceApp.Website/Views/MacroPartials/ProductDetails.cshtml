@@ -1,0 +1,49 @@
+﻿@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@using UCommerce.Extensions
+@using UCommerce.Runtime
+@{
+    var catalog = SiteContext.Current.CatalogContext.CurrentCatalog;
+    var product = SiteContext.Current.CatalogContext.CurrentProduct;
+    var price = CatalogLibrary.CalculatePrice(product, catalog);
+
+    var relatedProducts = CatalogLibrary.GetRelatedProducts(product.ProductId).SelectMany(x => x.Value);
+
+    var request = HttpContext.Current.Request;
+    if (request.HttpMethod == "POST")
+    {
+        string sku = request.Form["sku"];
+        string variantSku = request.Form["variantSku"];
+
+        TransactionLibrary.AddToBasket(1, sku, variantSku);
+    }
+}
+
+<form method="POST">
+    <h1>@product.DisplayName()</h1>
+    <span>@price.YourPrice.Amount</span>
+    <input type="hidden" value="@product.Sku" name="sku"/>
+    @if (product.ProductDefinition.IsProductFamily())
+    {
+        <select name="variantSku">
+            @foreach (var variant in product.Variants)
+            {
+                <option>@variant.VariantSku</option>
+            }
+        </select>
+    }
+
+    <input type="submit" value="Add to basket"/>
+
+</form>
+
+@if (relatedProducts.Any())
+{
+    <h3>You might also like</h3>
+
+    foreach (var relatedProduct in relatedProducts)
+    {
+        <h4>@relatedProduct.DisplayName()</h4>
+        <a href="Product?product=@relatedProduct.ProductId">More info</a>
+    }
+}

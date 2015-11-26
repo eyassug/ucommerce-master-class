@@ -1,0 +1,35 @@
+﻿@using UCommerce.Extensions
+@using UCommerce.Runtime
+@using umbraco.MacroEngines
+@using UCommerce.Api
+@using System.Linq
+@using UCommerce.EntitiesV2
+@{
+    var catalog = SiteContext.Current.CatalogContext.CurrentCatalog;
+    var category = SiteContext.Current.CatalogContext.CurrentCategory;
+    var products = CatalogLibrary.GetProducts(category);
+    
+}
+
+<h1>@category.DisplayName()</h1>
+<h2>@category.Description()</h2>
+
+@if (products.Any())
+{
+    foreach (Product product in products.Where(p => p.DisplayOnSite))
+    {
+        var price = CatalogLibrary.CalculatePrice(product, catalog);
+        <div>
+            <h3>@product.DisplayName()</h3>
+            <p>
+                @product.ShortDescription()
+            </p>
+            <span>
+                @price.YourPrice.Amount
+            </span>
+            <a href="Product?product=@product.ProductId">
+                More info
+            </a>
+        </div>
+    }
+}

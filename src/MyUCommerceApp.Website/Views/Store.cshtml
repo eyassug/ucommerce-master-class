@@ -1,0 +1,64 @@
+﻿@using UCommerce
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@using UCommerce.Extensions
+@using UCommerce.Runtime
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+    var currency = SiteContext.Current.CatalogContext.CurrentCatalog.PriceGroup.Currency;
+    Basket basket = null;
+    var orderTotal = new Money(0, currency);
+
+    if (TransactionLibrary.HasBasket())
+     {
+         basket = TransactionLibrary.GetBasket();
+         if (basket.PurchaseOrder.OrderTotal.HasValue)
+          {
+              orderTotal = new Money(basket.PurchaseOrder.OrderTotal.Value, currency);
+          }
+
+     }
+}
+
+<html>
+	<head>
+	</head>
+<body>
+
+@helper Display(ICollection<Category> categories)
+{
+    if (categories.Any())
+    {
+        <ul>
+            @foreach (Category category in categories)
+            {
+                <li>
+                    <a href="Category?category=@category.CategoryId">
+                        @category.DisplayName()
+                    </a>
+                    @Display(category.Categories)
+                </li>
+            }
+        </ul>
+    }
+}
+
+@Display(CatalogLibrary.GetRootCategories())
+
+<div>
+    @if (basket == null || !basket.PurchaseOrder.OrderLines.Any())
+    {
+        <i>Your basket is empty</i>
+    }
+    else
+    {
+        <strong>Your basket:</strong>
+        <a href="/cart"><span>@basket.PurchaseOrder.OrderLines.Sum(x => x.Quantity).ToString("#,##") items in your basket, total: @orderTotal</span></a>
+    }
+    
+</div>
+
+@RenderBody()
+</body>
+</html>	

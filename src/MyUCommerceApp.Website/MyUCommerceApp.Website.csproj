@@ -107,7 +107,23 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\" />
+    <Content Include="Views\Category.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Billing.cshtml" />
+    <Content Include="Views\Blank.cshtml" />
+    <Content Include="Views\Cart.cshtml" />
+    <Content Include="Views\MacroPartials\Category.cshtml" />
+    <Content Include="Views\MacroPartials\ProductDetails.cshtml" />
+    <Content Include="Views\Payment.cshtml" />
+    <Content Include="Views\Preview.cshtml" />
+    <Content Include="Views\ProductDetails.cshtml" />
+    <Content Include="Views\Shipping.cshtml" />
+    <Content Include="Views\Store.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Umbraco\ucommerce\configuration\Custom.config" />
+    <Content Include="Umbraco\ucommerce\pipelines\Baskets.Basket.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

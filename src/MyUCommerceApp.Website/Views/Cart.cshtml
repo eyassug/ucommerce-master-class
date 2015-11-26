@@ -1,0 +1,48 @@
+﻿@using UCommerce
+@using UCommerce.Api
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Store.cshtml";
+
+    var basket = TransactionLibrary.GetBasket(true);
+
+    var request = HttpContext.Current.Request;
+    if (request.HttpMethod == "POST")
+    {
+        foreach (var orderline in basket.PurchaseOrder.OrderLines)
+        {
+            int qty = Convert.ToInt32(request.Form["quantityInput_" + orderline.OrderLineId]);
+            orderline.Quantity = qty;
+        }
+
+        TransactionLibrary.ExecuteBasketPipeline();
+    }
+}
+
+<h1>Your basket</h1>
+
+<form method="POST">
+    <table>
+        <tr>
+            <th>SKU</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        @foreach (var orderline in basket.PurchaseOrder.OrderLines)
+        {
+            <tr>
+                <td>@orderline.Sku</td>
+                <td>@orderline.ProductName</td>
+                <td><input type="text" name="quantityInput_@orderline.OrderLineId" value="@orderline.Quantity"/></td>
+                <td>@(new Money(orderline.Total.Value, basket.PurchaseOrder.BillingCurrency))</td>
+            </tr>
+        }
+        <tr>
+            <td colspan="3">Order total:</td>
+            <td>@(new Money(basket.PurchaseOrder.OrderTotal.Value, basket.PurchaseOrder.BillingCurrency))</td>
+        </tr>
+    </table>
+    <input type="submit" value="Update"/>
+</form>
+<a href="/billing">Proceed to billing</a>

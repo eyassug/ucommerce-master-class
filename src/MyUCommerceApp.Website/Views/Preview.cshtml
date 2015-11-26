@@ -1,0 +1,85 @@
+﻿@using UCommerce
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Store.cshtml";
+
+    var order = TransactionLibrary.GetBasket().PurchaseOrder;
+    var billingAddress = order.BillingAddress;
+    var shippingAddress = order.GetShippingAddress("Shipment");
+
+    if (Request.HttpMethod == "POST")
+    {
+        TransactionLibrary.RequestPayments();
+        Response.Redirect("Confirm?order=" + order.OrderGuid);
+    }
+}
+
+<form method="post">
+    <div>
+        @Display(billingAddress)
+        @Display(shippingAddress)
+
+        <table>
+            @foreach (var orderLine in order.OrderLines)
+            {
+                var unitPrice = new Money(orderLine.Price, order.BillingCurrency);
+                var unitTax = new Money(orderLine.VAT, order.BillingCurrency);
+                var lineTotal = new Money(orderLine.Total.Value, order.BillingCurrency);
+                <tr>
+                    <td>@orderLine.Sku @orderLine.VariantSku</td>
+                    <td>@orderLine.Quantity pcs.</td>
+                    <td>@unitPrice</td>
+                    <td>@unitTax</td>
+                    <td>@lineTotal</td>
+                </tr>
+            }
+            @{var orderTotal = new Money(order.OrderTotal.Value, order.BillingCurrency);
+                var taxTotal = new Money(order.TaxTotal.Value, order.BillingCurrency);
+                var paymentFeeTotal = new Money(order.PaymentTotal.Value, order.BillingCurrency);
+                var shippingFeeTotal = new Money(order.ShippingTotal.Value, order.BillingCurrency);
+                var subTotal = new Money(order.SubTotal.Value, order.BillingCurrency);
+            }
+            <tr>
+                <td colspan="3">&nbsp;</td>
+                <td>Sub total</td>
+                <td>@subTotal</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+                <td>Tax</td>
+                <td>@taxTotal</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+                <td>Shipping fees</td>
+                <td>@shippingFeeTotal</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+                <td>Payment fees</td>
+                <td>@paymentFeeTotal</td>
+            </tr>
+            <tr>
+                <td colspan="3">&nbsp;</td>
+                <td>Total</td>
+                <td>@orderTotal</td>
+            </tr>
+        </table>
+    </div>
+    <input type="submit" value="Confirm and pay"/>
+</form>
+
+@helper Display(OrderAddress address)
+{
+    <legend>@address.AddressName Address</legend>
+    <div>@address.FirstName @address.LastName</div>
+    <div>@address.Line1</div>
+    <div>@address.Line2</div>
+    <div>@address.PostalCode @address.City</div>
+    <div>@address.Country.Name</div>
+    <div>@address.EmailAddress</div>
+    <div>@address.PhoneNumber</div>
+    <div>@address.MobilePhoneNumber</div>
+}

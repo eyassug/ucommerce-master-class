@@ -1,0 +1,30 @@
+﻿@using UCommerce.Api
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Store.cshtml";
+
+    var shipmentInformation = TransactionLibrary.GetShippingInformation();
+    var paymentMethods = TransactionLibrary.GetPaymentMethods(shipmentInformation.Country);
+
+    var basket = TransactionLibrary.GetBasket();
+    var payment = basket.PurchaseOrder.Payments.FirstOrDefault();
+    var selectedPaymentMethodId = payment != null ? payment.PaymentMethod.PaymentMethodId : 0;
+
+    var request = HttpContext.Current.Request;
+    if (request.HttpMethod == "POST")
+    {
+        var paymentMethodId = int.Parse(request.Form["paymentMethod"]);
+        TransactionLibrary.CreatePayment(paymentMethodId, -1m, false, true);
+        Response.Redirect("Preview");
+    }
+}
+
+<form method="POST">
+    @foreach (var paymentMethod in paymentMethods)
+    {
+        <div>
+            <input type="radio" name="paymentMethod" value="@paymentMethod.PaymentMethodId" @(@paymentMethod.PaymentMethodId == selectedPaymentMethodId ? "checked" : string.Empty) />@paymentMethod.Name
+        </div>
+    }
+    <input type="submit" value="Review order and pay"/>
+</form>

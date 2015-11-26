@@ -1,0 +1,110 @@
+﻿@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Store.cshtml";
+
+    var basket = TransactionLibrary.GetBasket(true);
+    var billingAddress = TransactionLibrary.GetBillingInformation();
+    billingAddress.AddressName = "Billing";
+    var shippingAddress = TransactionLibrary.GetShippingInformation();
+    shippingAddress.AddressName = "Shipping";
+
+
+    var request = HttpContext.Current.Request;
+    if (request.HttpMethod == "POST")
+    {
+        TransactionLibrary.EditBillingInformation(
+            request.Form["billing-firstName"],
+            request.Form["billing-lastName"],
+            request.Form["billing-email"],
+            request.Form["billing-phone"],
+            request.Form["billing-mobilephone"],
+            request.Form["billing-company"],
+            request.Form["billing-line1"],
+            request.Form["billing-line2"],
+            request.Form["billing-postalCode"],
+            request.Form["billing-city"],
+            request.Form["billing-state"],
+            request.Form["billing-attention"],
+            Convert.ToInt32(request.Form["billing-country"]));
+
+        TransactionLibrary.EditShippingInformation(
+            request.Form["shipping-firstName"],
+            request.Form["shipping-lastName"],
+            request.Form["shipping-email"],
+            request.Form["shipping-phone"],
+            request.Form["shipping-mobilephone"],
+            request.Form["shipping-company"],
+            request.Form["shipping-line1"],
+            request.Form["shipping-line2"],
+            request.Form["shipping-postalCode"],
+            request.Form["shipping-city"],
+            request.Form["shipping-state"],
+            request.Form["shipping-attention"],
+            Convert.ToInt32(request.Form["shipping-country"]));
+
+        HttpContext.Current.Response.Redirect("Shipping");
+    }
+}
+
+@helper EditorFor(OrderAddress address)
+{
+string prefix = address.AddressName;
+
+    <legend>@prefix address</legend>
+    <div>
+        <label>Name</label>
+        <input type="text" name="@prefix-firstName" value="@address.FirstName" />
+        <input type="text" name="@prefix-lastName" value="@address.LastName" />
+    </div>
+    <div>
+        <label>E-mail</label>
+        <input type="text" name="@prefix-email" value="@address.EmailAddress" />
+    </div>
+    <div>
+        <label>Company</label>
+        <input type="text" name="@prefix-company" value="@address.CompanyName" />
+    </div>
+    <div>
+        <label>Street</label>
+        <input type="text" name="@prefix-line1" value="@address.Line1" />
+    </div>
+    <div>
+        <label>Street 2</label>
+        <input type="text" name="@prefix-line2" value="@address.Line2" />
+    </div>
+    <div>
+        <label>City</label>
+        <input type="text" name="@prefix-city" value="@address.City" />
+    </div>
+    <div>
+        <label>Postal code</label>
+        <input type="text" name="@prefix-postalcode" value="@address.PostalCode" />
+    </div>
+    <div>
+        <label>Country</label>
+        <select name="@prefix-country">
+            @foreach (var country in Country.All().ToList())
+            {
+                <option value="@country.CountryId">@country.Name</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label>Phone</label>
+        <input type="text" name="@prefix-phone" value="@address.PhoneNumber" />
+    </div>
+    <div>
+        <label>Mobile phone</label>
+        <input type="text" name="@prefix-mobilephone" value="@address.MobilePhoneNumber" />
+    </div>
+}
+
+<form method="POST">
+    <div>
+        @EditorFor(billingAddress)
+        @EditorFor(shippingAddress)
+        <input type="submit" value="Continue to shipping"/>
+    </div>
+</form>
