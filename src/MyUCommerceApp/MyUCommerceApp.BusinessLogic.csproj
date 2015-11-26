@@ -60,20 +60,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTypes\PriceGroupControlFactory.cs" />
     <Compile Include="Integration\InMemoryCommerceConfigurationProvider.cs" />
     <Compile Include="Integration\SingleUserService.cs" />
     <Compile Include="NhibernateMappings\NHibernateMappingTag.cs" />
     <Compile Include="Pipelines\NotifyOnVipBasketTask.cs" />
+    <Compile Include="Pricing\ExtendedTaxService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\LatestOrderQuery.cs" />
     <Compile Include="Queries\ProductsCreatedTodayQuery.cs" />
+    <Compile Include="Shipping\QuantityShippingMethodService.cs" />
     <Compile Include="SiteContext\MyCatalogContext.cs" />
     <Compile Include="WebServices\WebServiceTag.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NhibernateMappings\Maps\" />
-    <Folder Include="Pricing\" />
-    <Folder Include="Shipping\" />
     <Folder Include="WebServices\Impl\" />
     <Folder Include="WebServices\Model\" />
   </ItemGroup>

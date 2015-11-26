@@ -2,6 +2,7 @@
 using MyUCommerceApp.BusinessLogic.Queries;
 using UCommerce.EntitiesV2;
 using UCommerce.Infrastructure;
+using UCommerce.Transactions;
 
 namespace MyUCommerceApp.Integration
 {
@@ -13,6 +14,9 @@ namespace MyUCommerceApp.Integration
 				.Instance
 				.Resolve<IRepository<PurchaseOrder>>()
 				.Select(new LatestOrderQuery()).First();
+
+
+//			ObjectFactory.Instance.Resolve<IOrderService>().ChangeOrderStatus(order,OrderStatus.Get((int) OrderStatusCode.Cancelled));
 		}
 	}
 }
