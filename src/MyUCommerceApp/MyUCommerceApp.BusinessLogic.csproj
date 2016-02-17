@@ -43,8 +43,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UCommerce">
-      <HintPath>..\..\lib\uCommerce\UCommerce.dll</HintPath>
+    <Reference Include="UCommerce, Version=7.0.2.16034, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MyUCommerceApp.Website\Bin\UCommerce.dll</HintPath>
     </Reference>
     <Reference Include="UCommerce.Infrastructure">
       <HintPath>..\..\lib\uCommerce\UCommerce.Infrastructure.dll</HintPath>
