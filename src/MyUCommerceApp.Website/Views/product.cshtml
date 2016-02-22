@@ -1,0 +1,35 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@using UCommerce.Runtime
+@using UCommerce.Extensions
+@{
+    Layout = "masterclass.cshtml";
+}
+
+@{
+    UCommerce.EntitiesV2.Product product = UCommerce.Runtime.SiteContext.Current.CatalogContext.CurrentProduct;
+
+    UCommerce.Api.PriceCalculation productPriceCalculation = UCommerce.Api.CatalogLibrary.CalculatePrice(product);
+}
+
+<form method="POST">
+    
+    <input type="hidden" name="Sku" value="@product.Sku"/>
+    
+    <h1>@product.DisplayName()</h1>
+
+    <div>
+        <span>Your price: @productPriceCalculation.YourPrice.Amount</span>
+    </div>  
+    
+    <select name="VariantSku">
+        @foreach (UCommerce.EntitiesV2.Product variant in product.Variants)
+        {
+            <option value="@variant.VariantSku">@variant.VariantSku</option>
+        }
+    </select>
+    
+    <input type="submit" value="Add To Basket" />
+
+</form>

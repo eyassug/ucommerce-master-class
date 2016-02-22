@@ -87,6 +87,9 @@
     <Reference Include="UCommerce">
       <HintPath>..\..\lib\uCommerce\UCommerce.dll</HintPath>
     </Reference>
+    <Reference Include="umbraco">
+      <HintPath>..\..\..\..\inetpub\U6\Website\bin\umbraco.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Umbraco\ucommerce\Apps\Master Class\AssemblyTags.config">
@@ -107,7 +110,19 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\" />
+    <Content Include="Views\frontpage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\masterclass.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\category.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\product.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

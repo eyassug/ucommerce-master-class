@@ -1,0 +1,32 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using System.Collections
+@using UCommerce.Api
+@using UCommerce.Runtime
+@using UCommerce.EntitiesV2
+@using UCommerce.Extensions
+@using UCommerce.Web.Api
+@{
+    Layout = "masterclass.cshtml";
+}
+
+@{
+    UCommerce.EntitiesV2.Category currentCategory =
+        UCommerce.Runtime.SiteContext.Current.CatalogContext.CurrentCategory;
+
+    IList<UCommerce.EntitiesV2.Product> products = UCommerce.Api.CatalogLibrary.GetProducts(currentCategory).ToList();
+}
+
+<h1>@currentCategory.DisplayName()</h1>
+
+<h2>Products in this category:</h2>
+
+@foreach (var product in products)
+{
+    UCommerce.Api.PriceCalculation priceCalculation = UCommerce.Api.CatalogLibrary.CalculatePrice(product);
+    <div>
+        <span>@product.Sku</span>
+        <span>@product.DisplayName()</span>
+        <a href="/product?Product=@product.ProductId">more information</a>
+        <span>Your price: @priceCalculation.YourPrice.Amount incl. VAT of: @priceCalculation.YourTax</span>
+    </div>
+}
