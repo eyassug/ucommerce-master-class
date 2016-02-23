@@ -1,0 +1,48 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "masterclass.cshtml";
+}
+
+@{
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        int shippingMethodId = Convert.ToInt32(Request.Form["ShippingMethod"]);
+       
+        UCommerce.Api.TransactionLibrary.CreateShipment(shippingMethodId, overwriteExisting: true);
+        UCommerce.Api.TransactionLibrary.ExecuteBasketPipeline();
+    }
+}
+
+
+@{
+    var order = UCommerce.Api.TransactionLibrary.GetBasket(false).PurchaseOrder;
+
+    if (order.OrderTotal > 500 && !order.Shipments.Any())
+    {
+        //preselect a shippingMethod
+    }
+    
+    var shippingDetails = UCommerce.Api.TransactionLibrary.GetShippingInformation();
+
+    var shippingMethods = UCommerce.Api.TransactionLibrary.GetShippingMethods(shippingDetails.Country);
+
+    var shipment = order.Shipments.FirstOrDefault();
+
+    var selectedShippingMethodId = shipment != null ? shipment.ShippingMethod.ShippingMethodId : -1;
+}
+
+<h1>Select between available shipping methods</h1>
+
+<form method="POST">
+  @foreach (var shippingMethod in shippingMethods)
+  {
+    <div>
+        <input type="radio" name="ShippingMethod" @(selectedShippingMethodId == shippingMethod.ShippingMethodId ? "checked" : "") value="@shippingMethod.ShippingMethodId" /> @shippingMethod.Name
+    </div>
+  }
+    
+  <input type="submit" value="Update"/>  
+</form>
+
+<a href="/payment">Go to payment options</a>
+

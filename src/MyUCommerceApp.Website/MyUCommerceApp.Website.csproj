@@ -124,6 +124,21 @@
   <ItemGroup>
     <Content Include="Views\product.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\basket.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Billing.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shipping.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Payment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\preview.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

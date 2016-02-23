@@ -1,0 +1,74 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@{
+    Layout = "masterclass.cshtml";
+}
+
+@{
+    UCommerce.EntitiesV2.PurchaseOrder basket = UCommerce.Api.TransactionLibrary.GetBasket(false).PurchaseOrder;
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        var orderLines = basket.OrderLines.ToList();
+        foreach (OrderLine orderLine in orderLines)
+        {
+            int qty = Convert.ToInt32(Request.Form["quantityInput_" + orderLine.OrderLineId]);
+           
+            if (Request.Form["RemoveOrderLine_" + orderLine.OrderLineId] != null)
+            {
+                qty = 0;
+            }
+            
+            TransactionLibrary.UpdateLineItem(orderLine.OrderLineId, qty);
+        }
+        
+        TransactionLibrary.ExecuteBasketPipeline();
+        
+    }
+}
+
+
+@{  
+    UCommerce.Money orderTotal = new Money(basket.OrderTotal.GetValueOrDefault(), basket.BillingCurrency);
+}
+
+<h1>Your basket</h1>
+
+<form method="POST">
+    
+    <table>
+        <thead>
+            <tr>
+                <th>SKU</th> 
+                <th>Product</th>
+                <th>Quantiy</th>
+                <th>Price</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (UCommerce.EntitiesV2.OrderLine orderLine in basket.OrderLines)
+            {
+                Money money = new UCommerce.Money(orderLine.Total.GetValueOrDefault(), basket.BillingCurrency);
+                <tr>
+                    <td>@orderLine.Sku</td>
+                    <td>@orderLine.ProductName</td>
+                    <td><input type="text" name="quantityInput_@orderLine.OrderLineId" value="@orderLine.Quantity" /></td>
+                    <td>@money</td>
+                    <td><input type="submit" name="RemoveOrderLine_@orderLine.OrderLineId" value="X"/></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">Order total:</td>
+                <td>@orderTotal</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <input type="submit" value="Update Basket"/>
+</form>
+
+<a href="/billing">Go through checkout</a>

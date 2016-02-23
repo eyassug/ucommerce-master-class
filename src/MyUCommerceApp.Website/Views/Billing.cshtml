@@ -1,0 +1,63 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@{
+    Layout = "masterclass.cshtml";
+}
+
+@{
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        //Look up order address details by email.
+        //var orderAddress = OrderAddress.All().Where(x => x.EmailAddress == "" && x.AddressName == "billing").FirstOrDefault();
+        
+        TransactionLibrary.EditBillingInformation(
+        Request.Form["billing-firstName"],
+        Request.Form["billing-lastName"],
+        Request.Form["billing-email"],
+        Request.Form["billing-phone"],
+        Request.Form["billing-mobilephone"],
+        Request.Form["billing-company"],
+        Request.Form["billing-line1"],
+        Request.Form["billing-line2"],
+        Request.Form["billing-postalCode"],
+        Request.Form["billing-city"],
+        Request.Form["billing-state"],
+        Request.Form["billing-attention"],
+        Convert.ToInt32(Request.Form["billing-country"]));
+
+        TransactionLibrary.EditShippingInformation(
+            Request.Form["shipping-firstName"],
+            Request.Form["shipping-lastName"],
+            Request.Form["shipping-email"],
+            Request.Form["shipping-phone"],
+            Request.Form["shipping-mobilephone"],
+            Request.Form["shipping-company"],
+            Request.Form["shipping-line1"],
+            Request.Form["shipping-line2"],
+            Request.Form["shipping-postalCode"],
+            Request.Form["shipping-city"],
+            Request.Form["shipping-state"],
+            Request.Form["shipping-attention"],
+            Convert.ToInt32(Request.Form["shipping-country"]));
+    }
+}
+
+@{
+    var billingAddress = UCommerce.Api.TransactionLibrary.GetBillingInformation();
+    billingAddress.AddressName = "billing"; 
+
+    var shippingInformation = UCommerce.Api.TransactionLibrary.GetShippingInformation();
+    shippingInformation.AddressName = "shipping";
+}
+
+<form method="POST">
+    @Addresses.EditorFor(billingAddress);
+
+    @Addresses.EditorFor(shippingInformation);
+    
+    <input type="submit" value="Update Information"/>
+</form>
+
+<a href="/shipping">Go to shipping details</a>

@@ -22,7 +22,7 @@ namespace MyUCommerceApp.BusinessLogic.Integration
 			return new User(GetCurrentUserName());
 		}
 
-		public User GetUser(string userName)
+		public UCommerce.EntitiesV2.User GetUser(string userName)
 		{
 			throw new NotImplementedException();
 		}

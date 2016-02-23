@@ -9,27 +9,51 @@
 
 @{
     UCommerce.EntitiesV2.Product product = UCommerce.Runtime.SiteContext.Current.CatalogContext.CurrentProduct;
-
+    Response.Write(System.Web.HttpContext.Current.Request.Url);
     UCommerce.Api.PriceCalculation productPriceCalculation = UCommerce.Api.CatalogLibrary.CalculatePrice(product);
+
+    var campaigns = UCommerce.Api.MarketingLibrary.GetTargetedCampaignItems();
+}
+
+@{
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        string sku = System.Web.HttpContext.Current.Request.Form["Sku"];
+        string variantSku = System.Web.HttpContext.Current.Request.Form["VariantSku"];
+
+        UCommerce.Api.TransactionLibrary.AddToBasket(1, sku, variantSku);
+        
+        Response.Write(string.Format("Product: {0} {1} added to basket!",sku, variantSku));
+    }
 }
 
 <form method="POST">
     
+    @foreach (UCommerce.EntitiesV2.CampaignItem item in campaigns)
+    {
+        var teaser = item.DynamicProperty<string>().Teaser.ToString();
+        <span>@teaser</span>
+    }
+
     <input type="hidden" name="Sku" value="@product.Sku"/>
-    
+    <input type="hidden" name="Product" value="@product.ProductId" />
     <h1>@product.DisplayName()</h1>
 
     <div>
         <span>Your price: @productPriceCalculation.YourPrice.Amount</span>
     </div>  
     
-    <select name="VariantSku">
-        @foreach (UCommerce.EntitiesV2.Product variant in product.Variants)
-        {
-            <option value="@variant.VariantSku">@variant.VariantSku</option>
-        }
-    </select>
+    @if (product.ProductDefinition.IsProductFamily())
+    {
+        <select name="VariantSku">
+            @foreach (UCommerce.EntitiesV2.Product variant in product.Variants)
+            {
+                <option value="@variant.VariantSku">@variant.VariantSku</option>
+            }
+        </select>
+    }
     
     <input type="submit" value="Add To Basket" />
 
 </form>
+
