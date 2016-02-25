@@ -5,9 +5,11 @@ using MyUCommerceApp.BusinessLogic.Queries;
 using MyUCommerceApp.BusinessLogic.Queries.ViewModel;
 using NHibernate;
 using NHibernate.Linq;
+using UCommerce.Api;
 using UCommerce.EntitiesV2;
 using UCommerce.Infrastructure;
 using UCommerce.Transactions;
+using UCommerce.Transactions.Payments;
 
 namespace MyUCommerceApp.Integration
 {
@@ -103,8 +105,9 @@ namespace MyUCommerceApp.Integration
 //
 //			Product.All().Where(x => x.ProductId == 105).FetchMany(x => x.ProductRelations).ToList();
 
-			var orderStatus = OrderStatus.Get((int) OrderStatusCode.NewOrder);
-			var result = ObjectFactory.Instance.Resolve<IRepository<OrderViewModel>>().Select(new OrderViewQuery(orderStatus)).ToList();
+//			var orderStatus = OrderStatus.Get((int) OrderStatusCode.NewOrder);
+//			var result = ObjectFactory.Instance.Resolve<IRepository<OrderViewModel>>().Select(new OrderViewQuery(orderStatus)).ToList();
+
 		}
 	}
 }
