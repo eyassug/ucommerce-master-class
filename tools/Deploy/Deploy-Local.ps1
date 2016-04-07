@@ -21,7 +21,7 @@ $options = @("/E", "/S", "/xf", "*.cs", "/xf", "*.??proj", "/xf", "*.user", "/xf
 & robocopy "$src\Umbraco" "$website_root\Umbraco" $options
 & robocopy "$src\Layouts" "$website_root\Layouts" $options
 & robocopy "$src\Scripts" "$website_root\Scripts" $options
-& robocopy "$src\bin" "$website_root\bin" *.dll $options
+& robocopy "$src\bin" "$website_root\bin" MyUCommerceApp*.dll $options
 & robocopy "$src\App_Code" "$website_root\App_Code" *.* $options
 & robocopy "$src\Views" "$website_root\Views" *.* $options
 
