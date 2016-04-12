@@ -1,0 +1,42 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.EntitiesV2
+@using UCommerce.Api
+@using UCommerce.Extensions
+@using UCommerce.Runtime
+@{
+    Layout = "mc.cshtml";
+}
+
+@{
+    UCommerce.EntitiesV2.Product currentProduct = UCommerce.Runtime.SiteContext.Current.CatalogContext.CurrentProduct;
+    UCommerce.Api.PriceCalculation price = UCommerce.Api.CatalogLibrary.CalculatePrice(currentProduct);
+
+    bool? showOnHomepage = currentProduct.DynamicProperty<bool?>().ShowOnHomepage;
+}
+
+<h1>@currentProduct.DisplayName()</h1>
+
+<span>Your price: @price.YourPrice.Amount</span>
+
+@if (showOnHomepage.HasValue && showOnHomepage.Value)
+{
+    <h1>This is a featured product!</h1>
+}
+<form method="POST">
+
+    <input type="hidden" name="sku" value="@currentProduct.Sku" />
+
+    @if (currentProduct.ProductDefinition.IsProductFamily())
+    {
+        <h1>Variants: </h1>
+        <select name="variantSku">
+            @foreach (UCommerce.EntitiesV2.Product variant in currentProduct.Variants)
+            {
+                <option value="@variant.VariantSku">@variant.VariantSku</option>
+            }
+        </select>
+
+        <input type="submit" value="Add To Basket" />
+    }
+
+</form>

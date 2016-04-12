@@ -1,0 +1,15 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.EntitiesV2
+@using UCommerce.Api
+@{
+	Layout = null;
+}
+
+<html>
+	<head>
+	</head>
+    <body>
+        @Navigation.DisplayCategories(UCommerce.Api.CatalogLibrary.GetRootCategories().ToList())
+        @RenderBody()
+    </body>
+</html>
