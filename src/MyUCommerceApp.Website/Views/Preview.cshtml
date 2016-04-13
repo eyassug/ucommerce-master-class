@@ -1,0 +1,17 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.Api
+@{
+    Layout = "mc.cshtml";
+}
+
+@{
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        UCommerce.Api.TransactionLibrary.RequestPayments();
+        Response.Redirect("/complete");
+    }
+}
+
+<form method="POST">
+    <input type="submit" value="submit order"/>    
+</form>

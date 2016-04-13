@@ -14,6 +14,18 @@
     bool? showOnHomepage = currentProduct.DynamicProperty<bool?>().ShowOnHomepage;
 }
 
+@{
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        string sku = HttpContext.Current.Request.Form["sku"];
+        string variantSku = HttpContext.Current.Request.Form["variantSku"];
+
+        UCommerce.Api.TransactionLibrary.AddToBasket(1, sku, variantSku);
+        
+        Response.Write(string.Format("sku: {0} and variantsku: {1} added to the basket!", sku, variantSku));
+    }
+}
+
 <h1>@currentProduct.DisplayName()</h1>
 
 <span>Your price: @price.YourPrice.Amount</span>
@@ -35,8 +47,8 @@
                 <option value="@variant.VariantSku">@variant.VariantSku</option>
             }
         </select>
-
-        <input type="submit" value="Add To Basket" />
     }
+    
+    <input type="submit" value="Add To Basket" />
 
 </form>

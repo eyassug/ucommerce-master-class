@@ -1,0 +1,70 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@{
+    Layout = "mc.cshtml";
+}
+
+@{
+    UCommerce.EntitiesV2.PurchaseOrder basket = UCommerce.Api.TransactionLibrary.GetBasket(false).PurchaseOrder;    
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        var orderLines = basket.OrderLines.ToList();
+        foreach (var orderLine in orderLines)
+        {
+            int qty = Convert.ToInt32(Request.Form["quantity_" + orderLine.OrderLineId]);
+
+            if (Request.Form["remove_" + orderLine.OrderLineId] != null)
+            {
+                qty = 0;
+            }
+            
+            UCommerce.Api.TransactionLibrary.UpdateLineItem(orderLine.OrderLineId, qty);
+        }
+        
+        UCommerce.Api.TransactionLibrary.ExecuteBasketPipeline();
+    }
+}
+
+@{
+    Money orderTotal = new Money(basket.OrderTotal.GetValueOrDefault(), basket.BillingCurrency);
+}
+
+<h1>Your basket</h1>
+
+<form method="POST">
+    <table>
+        <thead>
+            <tr>
+                <th>SKU</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var orderLine in basket.OrderLines)
+            {
+                Money price = new Money(orderLine.Total.GetValueOrDefault(), basket.BillingCurrency);
+                <tr>
+                    <td>@orderLine.Sku</td>
+                    <td>@orderLine.ProductName</td>
+                    <td><input type="text" name="quantity_@orderLine.OrderLineId" value="@orderLine.Quantity"/></td>
+                    <td>@price</td>
+                    <td><input type="submit" name="remove_@orderLine.OrderLineId" value="X"/></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <td colspan="3">Order total:</td>
+            <td>@orderTotal</td>
+        </tfoot>
+    </table>
+    
+    <input type="submit" value="Update basket"/>
+    
+    <a href="/billing">Continue through checkout</a>
+
+</form>

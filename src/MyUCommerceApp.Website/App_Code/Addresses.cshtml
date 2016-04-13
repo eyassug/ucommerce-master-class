@@ -40,7 +40,7 @@ string prefix = address.AddressName;
         <select name="@prefix-country">
             @foreach (var country in Country.All().ToList())
             {
-                <option value="@country.CountryId">@country.Name</option>
+                <option value="@country.CountryId" @(country.CountryId == address.Country.CountryId ? "selected" : "")>@country.Name</option>
             }
         </select>
     </div>

@@ -1,0 +1,11 @@
+﻿@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@{
+    Layout = null;
+}
+
+@{
+    PurchaseOrder order = TransactionLibrary.GetPurchaseOrder(Guid.Parse(Request.QueryString["OrderGuid"]));
+    
+    
+}

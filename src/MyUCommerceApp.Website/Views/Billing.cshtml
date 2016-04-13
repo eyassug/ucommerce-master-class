@@ -1,0 +1,32 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@{
+    Layout = "mc.cshtml";
+}
+
+@{
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        @Addresses.SaveAddressInfo()
+    }
+}
+
+@{
+    OrderAddress billingAddress = UCommerce.Api.TransactionLibrary.GetBillingInformation();
+    billingAddress.AddressName = "billing";
+    
+    OrderAddress shippingAddress = UCommerce.Api.TransactionLibrary.GetShippingInformation();
+    shippingAddress.AddressName = "shipping";
+}
+
+<form method="POST">
+    
+    @Addresses.EditorFor(billingAddress)
+    
+    @Addresses.EditorFor(shippingAddress)
+    
+    <input type="submit" value="Update"/>
+    
+    <a href="/shipping">Continue to shipping</a>
+</form>
