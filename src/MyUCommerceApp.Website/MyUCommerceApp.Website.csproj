@@ -142,6 +142,21 @@
   <ItemGroup>
     <Content Include="Views\ConfirmationEmail.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Umbraco\ucommerce\Apps\Master Class\SiteContext.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Umbraco\ucommerce\Apps\Master Class\Shipping.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Umbraco\ucommerce\Apps\Master Class\Pipelines.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Umbraco\ucommerce\Apps\Master Class\DataTypes.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Umbraco\ucommerce\Apps\Master Class\Pricing.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
