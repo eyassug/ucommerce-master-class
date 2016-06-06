@@ -59,7 +59,7 @@
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
@@ -87,6 +87,9 @@
     <Reference Include="UCommerce">
       <HintPath>..\..\lib\uCommerce\UCommerce.dll</HintPath>
     </Reference>
+    <Reference Include="umbraco">
+      <HintPath>..\..\..\..\inetpub\U6\Website\bin\umbraco.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Umbraco\ucommerce\Apps\Master Class\AssemblyTags.config">
@@ -107,7 +110,17 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\" />
+    <Content Include="App_Code\Navigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\mc_frontpage.cshtml" />
+    <Content Include="Views\mc_master.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\mc_category.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\mc_product.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
