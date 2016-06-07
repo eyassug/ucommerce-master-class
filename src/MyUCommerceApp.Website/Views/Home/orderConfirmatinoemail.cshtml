@@ -1,0 +1,7 @@
+﻿@using UCommerce.Api
+@{
+    Layout = null;
+
+    var order = UCommerce.Api.TransactionLibrary.GetPurchaseOrder(Guid.Parse(Context.Request.QueryString["OrderGuid"]));
+}
+

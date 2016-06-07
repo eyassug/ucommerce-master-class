@@ -3,6 +3,20 @@
 @using UCommerce.Api
 @using UCommerce.EntitiesV2
 @using UCommerce.Extensions
+
+@{
+    if (HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        var sku = HttpContext.Current.Request.Form["sku"];
+        var variantSku = HttpContext.Current.Request.Form["variantSku"];
+        
+        UCommerce.Api.TransactionLibrary.AddToBasket(1, sku, variantSku);
+        
+        Response.Write(string.Format("Added: {0} {1}", sku, variantSku));
+    }
+    
+}
+
 @{
 	Layout = "mc_master.cshtml";
 

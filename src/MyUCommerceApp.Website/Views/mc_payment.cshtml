@@ -1,0 +1,43 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.EntitiesV2
+@using UCommerce.Api
+
+@{
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        TransactionLibrary.CreatePayment(Convert.ToInt32(Request.Form["paymentMethodId"]), -1m, false, true);
+        
+        TransactionLibrary.ExecuteBasketPipeline();
+        
+        Response.Redirect("/preview");
+    }
+}
+
+@{
+	Layout = "mc_master.cshtml";
+
+
+    UCommerce.EntitiesV2.Country shippingCountry = UCommerce.Api.TransactionLibrary.GetShippingInformation().Country;
+    
+    UCommerce.EntitiesV2.PurchaseOrder basket = UCommerce.Api.TransactionLibrary.GetBasket(false).PurchaseOrder;
+    Payment payment = basket.Payments.FirstOrDefault();
+    int selectedPaymentMethodId = -1;
+    if (payment != null)
+    {
+        selectedPaymentMethodId = payment.PaymentMethod.PaymentMethodId;        
+    }
+
+    var availablePaymentMethods = UCommerce.Api.TransactionLibrary.GetPaymentMethods(shippingCountry);
+    
+}
+<form method="POST">
+
+    @foreach (var paymentMethod in availablePaymentMethods)
+    {
+        <div>
+            <input type="radio" name="paymentMethodId" value="@paymentMethod.PaymentMethodId" @(selectedPaymentMethodId == paymentMethod.PaymentMethodId ? "checked" : "") /> @paymentMethod.Name
+        </div>
+    }
+
+    <input type="submit" value="Update and continue"/>
+</form>
