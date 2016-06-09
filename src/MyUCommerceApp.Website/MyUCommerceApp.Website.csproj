@@ -140,6 +140,15 @@
   <ItemGroup>
     <Content Include="Views\Home\orderConfirmatinoemail.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Umbraco\ucommerce\Apps\MyCatalogContext\MyCatalogContext.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Umbraco\ucommerce\Apps\Pipelines\ToCompleted\ToCompleted.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Umbraco\ucommerce\Apps\DataTypes\CustomDataTypes.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
