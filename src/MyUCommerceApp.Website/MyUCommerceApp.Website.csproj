@@ -279,9 +279,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\BasketController.cs" />
-    <Compile Include="Controllers\BillingController.cs" />
-    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PartialViewController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />

@@ -10,8 +10,8 @@ using MyUCommerceApp.Website.Models;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class ProductController : System.Web.Mvc.Controller
-	{
+	public class ProductController : Umbraco.Web.Mvc.RenderMvcController
+    {
 		public ActionResult Index()
 		{
 			ProductViewModel productModel = new ProductViewModel();

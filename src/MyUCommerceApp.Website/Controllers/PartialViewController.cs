@@ -9,8 +9,8 @@ using MyUCommerceApp.Website.Models;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class PartialViewController : System.Web.Mvc.Controller
-	{
+	public class PartialViewController : Umbraco.Web.Mvc.SurfaceController
+    {
 		public ActionResult CategoryNavigation()
 		{
 			var categoryNavigation = new CategoryNavigationViewModel();

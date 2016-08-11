@@ -9,8 +9,8 @@ using MyUCommerceApp.Website.Models;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class BillingController : System.Web.Mvc.Controller
-	{
+	public class AddressController : Umbraco.Web.Mvc.RenderMvcController
+    {
 		public ActionResult Index()
 		{
 			var addressDetails = new AddressDetailsViewModel();
