@@ -1,0 +1,18 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Mc_master>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@using UCommerce.EntitiesV2
+@using UCommerce.Api
+@{
+	Layout = null;
+}
+
+<html>
+	<head>
+	</head>
+    <body>
+        <a href="/basket">Basket</a>
+        <h1>Master class</h1>
+        @Navigation.DisplayCategories(UCommerce.Api.CatalogLibrary.GetRootCategories())
+        @RenderBody()
+    </body>
+</html>

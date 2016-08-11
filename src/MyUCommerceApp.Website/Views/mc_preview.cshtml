@@ -1,0 +1,87 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce
+@using UCommerce.EntitiesV2
+@using UCommerce.Api
+@{
+	Layout = "mc_master.cshtml";
+}
+
+@{
+    if (Context.Request.HttpMethod == "POST")
+    {
+        UCommerce.Api.TransactionLibrary.RequestPayments();
+        
+        Response.Redirect("/Complete");
+    }
+}
+
+@{
+    UCommerce.EntitiesV2.PurchaseOrder basket = TransactionLibrary.GetBasket().PurchaseOrder;
+
+    var orderTotal = new Money(basket.OrderTotal.GetValueOrDefault(), basket.BillingCurrency);
+    var subTotal = new Money(basket.SubTotal.GetValueOrDefault(), basket.BillingCurrency);
+    var taxTotal = new Money(basket.TaxTotal.GetValueOrDefault(), basket.BillingCurrency);
+    var paymentTotal = new Money(basket.PaymentTotal.GetValueOrDefault(), basket.BillingCurrency);
+    var shippingTotal = new Money(basket.ShippingTotal.GetValueOrDefault(), basket.BillingCurrency);
+    var discountTotal = new Money(basket.DiscountTotal.GetValueOrDefault(), basket.BillingCurrency);
+
+    var billingInformation = TransactionLibrary.GetBillingInformation();
+    var shippingInformation = TransactionLibrary.GetShippingInformation();
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Price</th>
+            <th>VAT</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (UCommerce.EntitiesV2.OrderLine orderLine in basket.OrderLines)
+        {
+            UCommerce.Money price = new Money(orderLine.Price, basket.BillingCurrency);
+            UCommerce.Money vat = new Money(orderLine.VAT, basket.BillingCurrency);
+            UCommerce.Money total = new Money(orderLine.Total.GetValueOrDefault(), basket.BillingCurrency);
+            <tr>
+                <td>@orderLine.Sku @orderLine.VariantSku</td>
+                <td>@price</td>
+                <td>@vat</td>
+                <td>@orderLine.Quantity</td>
+                <td>@total</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">Sub Total</td>
+            <td>@subTotal</td>
+        </tr>
+        <tr>
+            <td colspan="4">Tax Total</td>
+            <td>@taxTotal</td>
+        </tr>
+        <tr>
+            <td colspan="4">Payment Total</td>
+            <td>@paymentTotal</td>
+        </tr>
+        <tr>
+            <td colspan="4">Shipping Total</td>
+            <td>@shippingTotal</td>
+        </tr>
+        <tr>
+            <td colspan="4">Discount Total</td>
+            <td>@discountTotal</td>
+        </tr>
+        <tr>
+            <td colspan="4">Order Total</td>
+            <td>@orderTotal</td>
+        </tr>
+    </tfoot>
+</table>
+
+<form method="POST">
+    <input type="submit" value="Complete Order!"/>
+</form>

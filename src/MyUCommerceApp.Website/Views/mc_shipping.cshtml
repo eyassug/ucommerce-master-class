@@ -1,0 +1,38 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using UCommerce.Api
+@using UCommerce.EntitiesV2
+@{
+	Layout = "mc_master.cshtml";
+}
+
+@{
+    if (System.Web.HttpContext.Current.Request.HttpMethod == "POST")
+    {
+        UCommerce.Api.TransactionLibrary.CreateShipment(Convert.ToInt32(Request.Form["shippingMethodId"]), null, true);
+        
+        UCommerce.Api.TransactionLibrary.ExecuteBasketPipeline();
+        
+        Response.Redirect("/payment");
+    }
+}
+
+@{
+    var existingShippingMethod = UCommerce.Api.TransactionLibrary.GetShippingMethod();
+
+    UCommerce.EntitiesV2.OrderAddress shippingInformation = UCommerce.Api.TransactionLibrary.GetShippingInformation();
+    
+    UCommerce.EntitiesV2.Country country = shippingInformation.Country;
+
+    var availableShippingMethods = UCommerce.Api.TransactionLibrary.GetShippingMethods(country);
+}
+
+<form method="POST">
+    @foreach (var shippingMethod in availableShippingMethods)
+    {
+        <div>
+            <input name="shippingMethodId" @(existingShippingMethod.ShippingMethodId == shippingMethod.ShippingMethodId ? "checked" : "") value="@shippingMethod.ShippingMethodId" type="radio" /> @shippingMethod.Name
+        </div>
+    }
+    
+    <input type="submit" value="Update and Continue"/>
+</form>
