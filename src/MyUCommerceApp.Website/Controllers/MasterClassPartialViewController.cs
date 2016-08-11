@@ -10,7 +10,7 @@ using MyUCommerceApp.Website.Models;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class PartialViewController : Umbraco.Web.Mvc.SurfaceController
+	public class MasterClassPartialViewController : Umbraco.Web.Mvc.SurfaceController
     {
         public ActionResult CategoryNavigation()
         {

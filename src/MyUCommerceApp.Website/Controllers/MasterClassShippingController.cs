@@ -8,7 +8,7 @@ using MyUCommerceApp.Website.Models;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class ShippingController : Umbraco.Web.Mvc.RenderMvcController
+	public class MasterClassShippingController : Umbraco.Web.Mvc.RenderMvcController
     {
 		public ActionResult Index()
 		{
