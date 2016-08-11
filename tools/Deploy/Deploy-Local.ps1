@@ -16,6 +16,7 @@ $options = @("/E", "/S", "/xf", "*.cs", "/xf", "*.??proj", "/xf", "*.user", "/xf
 
 # Copy all site specific files into the website
 & robocopy "$src\Controls" "$website_root\Controls" $options
+& robocopy "$src\Bootstrap" "$website_root\Bootstrap" $options
 & robocopy "$src\Css" "$website_root\Css" $options
 & robocopy "$src\img" "$website_root\Img" $options
 & robocopy "$src\Umbraco" "$website_root\Umbraco" $options
