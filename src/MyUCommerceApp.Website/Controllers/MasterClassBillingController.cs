@@ -86,7 +86,7 @@ namespace MyUCommerceApp.Website.Controllers
 
 			TransactionLibrary.ExecuteBasketPipeline();
 
-			return Redirect("/store/checkout/shipping");
+			return Redirect("/shipping");
 		}
 	}
 }

@@ -10,17 +10,43 @@ namespace MyUCommerceApp.Website.Controllers
 {
 	public class MasterClassShippingController : Umbraco.Web.Mvc.RenderMvcController
     {
-		public ActionResult Index()
-		{
-			var shippingViewModel = new ShippingViewModel();
+        public ActionResult Index()
+        {
+            var shipping = new ShippingViewModel();
+            shipping.AvailableShippingMethods = new List<SelectListItem>();
 
-			return View("/Views/Shipping.cshtml", shippingViewModel);
-		}
+            var shippingInformation = UCommerce.Api.TransactionLibrary.GetShippingInformation();
 
-		[HttpPost]
-		public ActionResult Index(ShippingViewModel shipping)
-		{
-			return Redirect("/store/checkout/payment");
+            var availableShippingMethods = TransactionLibrary.GetShippingMethods(shippingInformation.Country);
+
+            var selectedShippingMethod = TransactionLibrary.GetShippingMethod();
+
+            int selectedShippingMethodId = -1;
+            if (selectedShippingMethod != null)
+            {
+                selectedShippingMethodId = selectedShippingMethod.ShippingMethodId;
+            }
+
+            foreach (var availableShippingMethod in availableShippingMethods)
+            {
+                shipping.AvailableShippingMethods.Add(new SelectListItem()
+                {
+                    Selected = selectedShippingMethodId == availableShippingMethod.ShippingMethodId,
+                    Text = availableShippingMethod.Name,
+                    Value = availableShippingMethod.ShippingMethodId.ToString()
+                });
+            }
+
+            return View("/Views/Shipping.cshtml", shipping);
+        }
+
+        [HttpPost]
+        public ActionResult Index(ShippingViewModel shipping)
+        {
+            TransactionLibrary.CreateShipment(shipping.SelectedShippingMethodId, overwriteExisting: true);
+            TransactionLibrary.ExecuteBasketPipeline();
+
+            return Redirect("/payment");
 		}
 	}
 }

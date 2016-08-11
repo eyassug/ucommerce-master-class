@@ -51,7 +51,7 @@ namespace MyUCommerceApp.Website.Controllers
 
 			TransactionLibrary.ExecuteBasketPipeline();
 
-			return Redirect("/store/checkout/preview");
+			return Redirect("/preview");
 		}
 
 	}
