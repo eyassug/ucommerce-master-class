@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace UCommerce.MasterClass.Website.Models
+namespace MyUCommerceApp.Website.Models
 {
 	public class PaymentViewModel
 	{
