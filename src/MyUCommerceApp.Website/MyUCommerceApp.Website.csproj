@@ -274,6 +274,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\css\bootstrap-theme.css" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\css\bootstrap-theme.min.css" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\css\bootstrap.css" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\css\bootstrap.min.css" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\css\Styles.css" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\js\bootstrap.js" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\js\bootstrap.min.js" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\js\jQuery.js" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\js\npm.js" />
+    <Content Include="css\ucommerce.masterclass.css" />
     <Content Include="Umbraco\ucommerce\Apps\Master Class\AssemblyTags.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -342,6 +353,14 @@
     <Content Include="Views\Product.cshtml" />
     <Content Include="Views\Shipping.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\css\bootstrap-theme.css.map" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\css\bootstrap-theme.min.css.map" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\css\bootstrap.css.map" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\css\bootstrap.min.css.map" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Bootstrap\bootstrap-3.3.6-dist\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

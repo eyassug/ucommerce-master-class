@@ -8,7 +8,7 @@ using MyUCommerceApp.Website.Models;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class CartController : Umbraco.Web.Mvc.RenderMvcController
+	public class MasterClassBasketController : Umbraco.Web.Mvc.RenderMvcController
     {
 		public ActionResult Index()
 		{
