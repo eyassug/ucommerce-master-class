@@ -1,4 +1,4 @@
-﻿namespace UCommerce.MasterClass.Website.Models
+﻿namespace MyUCommerceApp.Website.Models
 {
 	public class OrderlineViewModel
 	{

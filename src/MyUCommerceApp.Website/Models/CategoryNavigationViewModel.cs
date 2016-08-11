@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace UCommerce.MasterClass.Website.Models
+namespace MyUCommerceApp.Website.Models
 {
-	public class CategoryNavigationViewModel
+    public class CategoryNavigationViewModel
 	{
 		public CategoryNavigationViewModel()
 		{
