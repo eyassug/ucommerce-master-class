@@ -30,3 +30,4 @@ _ReSharper*
 ._*
 .vs
 packages
+src/MyUCommerceApp.Website/App_Data/NuGetBackup/*
