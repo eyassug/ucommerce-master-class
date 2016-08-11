@@ -6,10 +6,9 @@ using System.Web.Mvc;
 using UCommerce.Api;
 using UCommerce.EntitiesV2;
 using UCommerce.Extensions;
-using UCommerce.MasterClass.Website.Models;
-using UCommerce.Runtime;
+using MyUCommerceApp.Website.Models;
 
-namespace UCommerce.MasterClass.Website.Controllers
+namespace MyUCommerceApp.Website.Controllers
 {
 	public class ProductController : System.Web.Mvc.Controller
 	{

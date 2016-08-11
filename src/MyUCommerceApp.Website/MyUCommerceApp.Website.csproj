@@ -279,6 +279,15 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BasketController.cs" />
+    <Compile Include="Controllers\BillingController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PartialViewController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\PreviewController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ShippingController.cs" />
     <Compile Include="Models\AddressDetailsViewModel.cs" />
     <Compile Include="Models\AddressViewModel.cs" />
     <Compile Include="Models\AddToBasketViewModel.cs" />
