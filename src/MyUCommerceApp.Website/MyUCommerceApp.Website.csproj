@@ -290,15 +290,15 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\CartController.cs" />
-    <Compile Include="Controllers\AddressController.cs" />
-    <Compile Include="Controllers\CatalogController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PartialViewController.cs" />
-    <Compile Include="Controllers\PaymentController.cs" />
-    <Compile Include="Controllers\PreviewController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Controllers\ShippingController.cs" />
+    <Compile Include="Controllers\MasterClassBasketController.cs" />
+    <Compile Include="Controllers\MasterClassBillingController.cs" />
+    <Compile Include="Controllers\MasterClassCategoryController.cs" />
+    <Compile Include="Controllers\MasterClassHomeController.cs" />
+    <Compile Include="Controllers\MasterClassPartialViewController.cs" />
+    <Compile Include="Controllers\MasterClassPaymentController.cs" />
+    <Compile Include="Controllers\MasterClassPreviewController.cs" />
+    <Compile Include="Controllers\MasterClassProductController.cs" />
+    <Compile Include="Controllers\MasterClassShippingController.cs" />
     <Compile Include="Models\AddressDetailsViewModel.cs" />
     <Compile Include="Models\AddressViewModel.cs" />
     <Compile Include="Models\AddToBasketViewModel.cs" />
