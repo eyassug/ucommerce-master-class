@@ -7,7 +7,7 @@ using MyUCommerceApp.Website.Models;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class HomeController : Umbraco.Web.Mvc.RenderMvcController
+	public class MasterClassHomeController : Umbraco.Web.Mvc.RenderMvcController
     {
 		public ActionResult Index()
 		{

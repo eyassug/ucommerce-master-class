@@ -9,7 +9,7 @@ using MyUCommerceApp.Website.Models;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class PaymentController : Umbraco.Web.Mvc.RenderMvcController
+	public class MasterClassPaymentController : Umbraco.Web.Mvc.RenderMvcController
     {
 		public ActionResult Index()
 		{
