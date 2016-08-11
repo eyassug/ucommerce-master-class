@@ -111,9 +111,9 @@
 </table>
 
 
-@using (Html.BeginForm("Post", "Preview", FormMethod.Post))
-{
+<form method="POST">
     <a href="/payment" class="btn btn-small">Back to Payment Method</a>
 
-    <input type="submit" class="btn btn-sm btn-arrow-right pull-right" value="Confirm and continue to payment"/>
-}
+    <input type="hidden" name="checkout" value="true" />
+    <input type="submit" class="btn btn-sm btn-arrow-right pull-right" value="Confirm and continue to payment" />
+</form>
