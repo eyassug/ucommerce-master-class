@@ -9,8 +9,8 @@ using MyUCommerceApp.Website.Models;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class PaymentController : System.Web.Mvc.Controller
-	{
+	public class PaymentController : Umbraco.Web.Mvc.RenderMvcController
+    {
 		public ActionResult Index()
 		{
 			var paymentViewModel = new PaymentViewModel();

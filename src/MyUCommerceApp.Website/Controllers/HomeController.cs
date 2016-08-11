@@ -7,8 +7,8 @@ using MyUCommerceApp.Website.Models;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class HomeController : System.Web.Mvc.Controller
-	{
+	public class HomeController : Umbraco.Web.Mvc.RenderMvcController
+    {
 		public ActionResult Index()
 		{
 			return View("/views/frontpage.cshtml");

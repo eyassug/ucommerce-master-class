@@ -8,8 +8,8 @@ using MyUCommerceApp.Website.Models;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class ShippingController : System.Web.Mvc.Controller
-	{
+	public class ShippingController : Umbraco.Web.Mvc.RenderMvcController
+    {
 		public ActionResult Index()
 		{
 			var shippingViewModel = new ShippingViewModel();

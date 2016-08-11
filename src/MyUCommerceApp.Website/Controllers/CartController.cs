@@ -8,8 +8,8 @@ using MyUCommerceApp.Website.Models;
 
 namespace MyUCommerceApp.Website.Controllers
 {
-	public class BasketController : System.Web.Mvc.Controller
-	{
+	public class CartController : Umbraco.Web.Mvc.RenderMvcController
+    {
 		public ActionResult Index()
 		{
 			var basketModel = new PurchaseOrderViewModel();
