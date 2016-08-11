@@ -53,7 +53,7 @@ namespace MyUCommerceApp.Website.Controllers
 		{
 			UCommerce.Api.TransactionLibrary.AddToBasket(1, model.Sku, model.VariantSku);
 
-            return Redirect(this.CurrentPage.Url);
+            return Index();
         }
     }
 }
