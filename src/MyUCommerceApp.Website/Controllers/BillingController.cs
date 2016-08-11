@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using UCommerce.Api;
 using UCommerce.EntitiesV2;
-using UCommerce.MasterClass.Website.Models;
+using MyUCommerceApp.Website.Models;
 
-namespace UCommerce.MasterClass.Website.Controllers
+namespace MyUCommerceApp.Website.Controllers
 {
 	public class BillingController : System.Web.Mvc.Controller
 	{
