@@ -354,9 +354,6 @@
     <Content Include="App_Code\Navigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\orderConfirmatinoemail.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Umbraco\ucommerce\Apps\MyCatalogContext\MyCatalogContext.config" />
   </ItemGroup>
   <ItemGroup>
