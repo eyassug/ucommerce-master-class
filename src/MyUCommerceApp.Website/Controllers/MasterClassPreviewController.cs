@@ -45,30 +45,7 @@ namespace MyUCommerceApp.Website.Controllers
 
         private PurchaseOrderViewModel MapOrder()
         {
-            PurchaseOrder basket = TransactionLibrary.GetBasket(false).PurchaseOrder;
-
             var basketModel = new PurchaseOrderViewModel();
-
-            foreach (var orderLine in basket.OrderLines)
-            {
-                var orderLineModel = new OrderlineViewModel();
-                orderLineModel.ProductName = orderLine.ProductName;
-                orderLineModel.Sku = orderLine.Sku;
-                orderLineModel.VariantSku = orderLine.VariantSku;
-                orderLineModel.Total =
-                    new Money(orderLine.Total.GetValueOrDefault(), orderLine.PurchaseOrder.BillingCurrency).ToString();
-
-                orderLineModel.Quantity = orderLine.Quantity;
-
-                basketModel.OrderLines.Add(orderLineModel);
-            }
-
-            basketModel.DiscountTotal = new Money(basket.DiscountTotal.GetValueOrDefault(), basket.BillingCurrency).ToString();
-            basketModel.SubTotal = new Money(basket.SubTotal.GetValueOrDefault(), basket.BillingCurrency).ToString();
-            basketModel.OrderTotal = new Money(basket.OrderTotal.GetValueOrDefault(), basket.BillingCurrency).ToString();
-            basketModel.TaxTotal = new Money(basket.TaxTotal.GetValueOrDefault(), basket.BillingCurrency).ToString();
-            basketModel.ShippingTotal = new Money(basket.ShippingTotal.GetValueOrDefault(), basket.BillingCurrency).ToString();
-            basketModel.PaymentTotal = new Money(basket.PaymentTotal.GetValueOrDefault(), basket.BillingCurrency).ToString();
 
             return basketModel;
         }
@@ -76,8 +53,6 @@ namespace MyUCommerceApp.Website.Controllers
         [HttpPost]
         public ActionResult Index(bool checkout)
         {
-            TransactionLibrary.RequestPayments();
-
             return View("/Views/Complete.cshtml");
         }
     }
