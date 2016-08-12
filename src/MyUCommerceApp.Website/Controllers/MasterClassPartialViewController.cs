@@ -33,7 +33,6 @@ namespace MyUCommerceApp.Website.Controllers
 
                 categoryViewModel.Name = category.DisplayName();
                 categoryViewModel.Url = "/category?category=" + category.CategoryId;
-                //				categoryViewModel.Url = UCommerce.Api.CatalogLibrary.GetNiceUrlForCategory(category);
                 categoryViewModel.Categories = MapCategories(UCommerce.Api.CatalogLibrary.GetCategories(category));
 
                 categoriesToReturn.Add(categoryViewModel);
