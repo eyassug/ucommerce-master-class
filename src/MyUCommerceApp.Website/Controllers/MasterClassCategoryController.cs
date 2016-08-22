@@ -21,13 +21,28 @@ namespace MyUCommerceApp.Website.Controllers
                 = UCommerce.Runtime.SiteContext.Current.CatalogContext.CurrentCategory;
 
             categoryViewModel.Name = currentCategory.DisplayName();
+            categoryViewModel.Description = currentCategory.Description();
+
+            categoryViewModel.Products = MapProducts(UCommerce.Api.CatalogLibrary.GetProducts(currentCategory));
 
             return View("/views/category.cshtml", categoryViewModel);
         }
 
-        private IList<ProductViewModel> MapProducts(ICollection<Product> productsInCategory)
+        private IList<ProductViewModel> MapProducts(ICollection<UCommerce.EntitiesV2.Product> productsInCategory)
         {
             IList<ProductViewModel> productViews = new List<ProductViewModel>();
+
+            foreach (var product in productsInCategory)
+            {
+                var productView = new ProductViewModel();
+
+                productView.Url = "/product?product=" + product.ProductId;
+                productView.Name = product.DisplayName();
+
+                productView.PriceCalculation = CatalogLibrary.CalculatePrice(product);
+
+                productViews.Add(productView);
+            }
 
             return productViews;
         }
