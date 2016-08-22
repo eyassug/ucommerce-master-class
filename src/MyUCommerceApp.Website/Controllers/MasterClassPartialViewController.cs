@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using CookComputing.Blogger;
 using MyUCommerceApp.Website.Models;
 using UCommerce.Api;
+using UCommerce.Extensions;
+using Category = UCommerce.EntitiesV2.Category;
+
 namespace MyUCommerceApp.Website.Controllers
 {
 	public class MasterClassPartialViewController : Umbraco.Web.Mvc.SurfaceController
@@ -23,12 +26,13 @@ namespace MyUCommerceApp.Website.Controllers
         {
             var categoriesToReturn = new List<CategoryViewModel>();
 
-            foreach (var category in categoriesToMap)
+            foreach (UCommerce.EntitiesV2.Category category in categoriesToMap)
             {
                 var categoryViewModel = new CategoryViewModel();
 
-                categoryViewModel.Name = category.Name;
-
+                categoryViewModel.Name = category.DisplayName();
+//                categoryViewModel.Url = UCommerce.Api.CatalogLibrary.GetNiceUrlForCategory(category);
+                categoryViewModel.Url = "/category?category=" + category.CategoryId;
                 categoryViewModel.Categories = MapCategories(UCommerce.Api.CatalogLibrary.GetCategories(category));
 
                 categoriesToReturn.Add(categoryViewModel);
