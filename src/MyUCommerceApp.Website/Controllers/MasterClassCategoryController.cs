@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UCommerce.EntitiesV2;
+using UCommerce.Api;
+using UCommerce.Runtime;
+using UCommerce.Extensions;
 using MyUCommerceApp.Website.Models;
 
 namespace MyUCommerceApp.Website.Controllers
@@ -13,6 +16,11 @@ namespace MyUCommerceApp.Website.Controllers
         public ActionResult Index()
         {
             var categoryViewModel = new CategoryViewModel();
+
+            var currentCategory 
+                = UCommerce.Runtime.SiteContext.Current.CatalogContext.CurrentCategory;
+
+            categoryViewModel.Name = currentCategory.DisplayName();
 
             return View("/views/category.cshtml", categoryViewModel);
         }
