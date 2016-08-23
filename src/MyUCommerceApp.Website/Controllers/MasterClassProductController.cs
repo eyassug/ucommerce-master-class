@@ -51,6 +51,8 @@ namespace MyUCommerceApp.Website.Controllers
         [HttpPost]
         public ActionResult Index(AddToBasketViewModel model)
         {
+            UCommerce.Api.TransactionLibrary.AddToBasket(1, model.Sku, model.VariantSku);
+
             return Index();
         }
     }
