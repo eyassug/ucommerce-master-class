@@ -69,6 +69,7 @@
     <Compile Include="Pricing\ExtendedTaxService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\LatestOrderQuery.cs" />
+    <Compile Include="Queries\OrderReportQuery.cs" />
     <Compile Include="Queries\ProductsQueryByProperties.cs" />
     <Compile Include="SiteContext\MyCatalogContext.cs" />
     <Compile Include="WebServices\WebServiceTag.cs" />

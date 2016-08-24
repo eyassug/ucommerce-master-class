@@ -54,17 +54,19 @@ namespace MyUCommerceApp.Integration
             //                }
             //            }
 
-   		    var sessionProvider = ObjectFactory.Instance.Resolve<ISessionProvider>();
-		    sessionProvider
-                .GetSession()
-                .Query<Product>()
-                .Where(x => x.ProductId == 105)
-                .FetchMany(x => x.Variants)
-                .FetchMany(x => x.CategoryProductRelations)
-                .FetchMany(x => x.ProductRelations)
-                .ToList();
+//   		    var sessionProvider = ObjectFactory.Instance.Resolve<ISessionProvider>();
+//		    sessionProvider
+//                .GetSession()
+//                .Query<Product>()
+//                .Where(x => x.ProductId == 105)
+//                .FetchMany(x => x.Variants)
+//                .FetchMany(x => x.CategoryProductRelations)
+//                .FetchMany(x => x.ProductRelations)
+//                .ToList();
 
 		    //Console.ReadLine();
+
+		    var orders = ObjectFactory.Instance.Resolve<IRepository<OrderReport>>().Select(new OrderReportQuery()).ToList();
 		}
     }
 }
