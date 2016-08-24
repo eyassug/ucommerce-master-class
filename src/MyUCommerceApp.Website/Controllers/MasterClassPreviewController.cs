@@ -47,7 +47,7 @@ namespace MyUCommerceApp.Website.Controllers
         {
             var basketModel = new PurchaseOrderViewModel();
 
-            var basket = UCommerce.Api.TransactionLibrary.GetBasket(false).PurchaseOrder;
+            UCommerce.EntitiesV2.PurchaseOrder basket = UCommerce.Api.TransactionLibrary.GetBasket(false).PurchaseOrder;
             var billingCurrency = basket.BillingCurrency;
 
             foreach (var basketOrderLine in basket.OrderLines)
