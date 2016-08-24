@@ -17,6 +17,7 @@ namespace MyUCommerceApp.Website.Controllers
             var basketModel = new PurchaseOrderViewModel();
 
             UCommerce.EntitiesV2.PurchaseOrder basket = UCommerce.Api.TransactionLibrary.GetBasket(false).PurchaseOrder;
+
             UCommerce.EntitiesV2.Currency billingCurrency = basket.BillingCurrency;
             
             basketModel.OrderTotal = new Money(basket.OrderTotal.GetValueOrDefault(), billingCurrency).ToString();

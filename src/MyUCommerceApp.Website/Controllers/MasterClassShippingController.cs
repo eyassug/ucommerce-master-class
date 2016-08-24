@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MyUCommerceApp.Website.Models;
+using UCommerce.Api;
+using UCommerce.EntitiesV2;
 
 namespace MyUCommerceApp.Website.Controllers
 {
@@ -13,12 +15,40 @@ namespace MyUCommerceApp.Website.Controllers
         {
             var shippingModel = new ShippingViewModel();
 
+            Country shippingCountry = TransactionLibrary.GetShippingInformation().Country;
+            ShippingMethod selectedShippingMethod = UCommerce.Api.TransactionLibrary.GetShippingMethod();
+
+            int selectedShippingMethodId = -1;
+            if (selectedShippingMethod != null)
+            {
+                selectedShippingMethodId = selectedShippingMethod.ShippingMethodId;
+            }
+
+            ICollection<ShippingMethod> availableShippingMethods = TransactionLibrary.GetShippingMethods(shippingCountry);
+
+            foreach (var availableShippingMethod in availableShippingMethods)
+            {
+                shippingModel.AvailableShippingMethods.Add(new SelectListItem()
+                {
+                    Selected = selectedShippingMethodId == availableShippingMethod.ShippingMethodId,
+                    Text = availableShippingMethod.Name,
+                    Value = availableShippingMethod.ShippingMethodId.ToString()
+                });
+            }
+
             return View("/Views/Shipping.cshtml", shippingModel);
         }
 
         [HttpPost]
         public ActionResult Index(ShippingViewModel shipping)
         {
+            TransactionLibrary.CreateShipment(
+                shippingMethodId: shipping.SelectedShippingMethodId, 
+                addressName: null, 
+                overwriteExisting: true);
+
+            TransactionLibrary.ExecuteBasketPipeline();
+
             return Redirect("/payment");
 		}
 	}
