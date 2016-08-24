@@ -47,12 +47,42 @@ namespace MyUCommerceApp.Website.Controllers
         {
             var basketModel = new PurchaseOrderViewModel();
 
+            var basket = UCommerce.Api.TransactionLibrary.GetBasket(false).PurchaseOrder;
+            var billingCurrency = basket.BillingCurrency;
+
+            foreach (var basketOrderLine in basket.OrderLines)
+            {
+                var orderLineViewModel = new OrderlineViewModel();
+                
+                orderLineViewModel.Sku = basketOrderLine.Sku;
+                orderLineViewModel.VariantSku = basketOrderLine.VariantSku;
+                orderLineViewModel.ProductName = basketOrderLine.ProductName;
+                orderLineViewModel.Quantity = basketOrderLine.Quantity;
+                orderLineViewModel.Total = new Money(basketOrderLine.Total.GetValueOrDefault(), basket.BillingCurrency).ToString();
+                
+                basketModel.OrderLines.Add(orderLineViewModel);
+            }
+
+            basketModel.SubTotal = new Money(basket.SubTotal.GetValueOrDefault(), billingCurrency).ToString();
+            basketModel.TaxTotal = new Money(basket.TaxTotal.GetValueOrDefault(), billingCurrency).ToString();
+            basketModel.DiscountTotal = new Money(basket.DiscountTotal.GetValueOrDefault(), billingCurrency).ToString();
+            basketModel.ShippingTotal = GetMoneyFormat(basket.ShippingTotal, billingCurrency);
+            basketModel.PaymentTotal = GetMoneyFormat(basket.PaymentTotal, billingCurrency);
+            basketModel.OrderTotal = GetMoneyFormat(basket.OrderTotal, billingCurrency);
+
             return basketModel;
+        }
+
+        private string GetMoneyFormat(decimal? value, Currency currency)
+        {
+            return new Money(value.GetValueOrDefault(), currency).ToString();
         }
 
         [HttpPost]
         public ActionResult Index(bool checkout)
         {
+            TransactionLibrary.RequestPayments();
+
             return View("/Views/Complete.cshtml");
         }
     }

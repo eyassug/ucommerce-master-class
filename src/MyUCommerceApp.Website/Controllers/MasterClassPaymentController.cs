@@ -17,16 +17,16 @@ namespace MyUCommerceApp.Website.Controllers
 
 			PurchaseOrder basket = TransactionLibrary.GetBasket(false).PurchaseOrder;
 
-			Country shippingCountry = TransactionLibrary.GetShippingInformation().Country;
+            var existingPayment = basket.Payments.FirstOrDefault();
+
+            paymentViewModel.SelectedPaymentMethodId = existingPayment != null
+                ? existingPayment.PaymentMethod.PaymentMethodId
+                : -1;
+
+            Country shippingCountry = TransactionLibrary.GetShippingInformation().Country;
 
 			var availablePaymentMethods = TransactionLibrary.GetPaymentMethods(shippingCountry);
-
-			var existingPayment = basket.Payments.FirstOrDefault();
-
-			paymentViewModel.SelectedPaymentMethodId = existingPayment != null
-				? existingPayment.PaymentMethod.PaymentMethodId
-				: -1;
-
+            
 			foreach (var availablePaymentMethod in availablePaymentMethods)
 			{
 				var option = new SelectListItem();
