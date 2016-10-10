@@ -314,9 +314,6 @@
     <Content Include="Bootstrap\bootstrap-3.3.6-dist\js\jQuery.js" />
     <Content Include="Bootstrap\bootstrap-3.3.6-dist\js\npm.js" />
     <Content Include="css\ucommerce.masterclass.css" />
-    <Content Include="Umbraco\ucommerce\Apps\Master Class\AssemblyTags.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\MasterClassBasketController.cs" />
@@ -354,18 +351,6 @@
     <Content Include="App_Code\Navigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Umbraco\ucommerce\Apps\MyCatalogContext\MyCatalogContext.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Umbraco\ucommerce\Apps\Pipelines\ToCompleted\ToCompleted.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Umbraco\ucommerce\Apps\DataTypes\CustomDataTypes.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Umbraco\ucommerce\Apps\Prices\Tax.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="web.config" />
     <Content Include="Views\AddressDetails.cshtml" />
     <Content Include="Views\Basket.cshtml" />
@@ -393,6 +378,9 @@
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Umbraco\ucommerce\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
