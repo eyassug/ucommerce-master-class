@@ -78,7 +78,7 @@ namespace MyUCommerceApp.Website.Controllers
         private PurchaseOrderViewModel MapOrder()
         {
             var basketModel = new PurchaseOrderViewModel();
-			var order = TransactionLibrary.GetPurchaseOrder(Request.QueryString["OrderGuid"])
+            var order = TransactionLibrary.GetPurchaseOrder(Request.QueryString["OrderGuid"]);
             return basketModel;
         }
 
