@@ -354,18 +354,6 @@
     <Content Include="App_Code\Navigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Umbraco\ucommerce\Apps\MyCatalogContext\MyCatalogContext.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Umbraco\ucommerce\Apps\Pipelines\ToCompleted\ToCompleted.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Umbraco\ucommerce\Apps\DataTypes\CustomDataTypes.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Umbraco\ucommerce\Apps\Prices\Tax.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="web.config" />
     <Content Include="Views\AddressDetails.cshtml" />
     <Content Include="Views\Basket.cshtml" />
@@ -393,6 +381,12 @@
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Umbraco\ucommerce\Apps\DataTypes\" />
+    <Folder Include="Umbraco\ucommerce\Apps\MyCatalogContext\" />
+    <Folder Include="Umbraco\ucommerce\Apps\Pipelines\ToCompleted\" />
+    <Folder Include="Umbraco\ucommerce\Apps\Prices\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
