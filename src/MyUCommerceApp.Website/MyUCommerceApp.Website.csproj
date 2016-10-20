@@ -372,7 +372,12 @@
     <Content Include="Bootstrap\bootstrap-3.3.6-dist\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Bootstrap\bootstrap-3.3.6-dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Bootstrap\bootstrap-3.3.6-dist\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Umbraco\ucommerce\Apps\CatalogContext.config" />
+    <Content Include="Umbraco\ucommerce\Apps\CatalogContext.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Umbraco\ucommerce\Apps\Pipelines\ToCompleted\ToCompleted.config" />
+    <Content Include="Umbraco\ucommerce\Apps\DataTypes\PriceGroupControlFactory.config" />
+    <Content Include="Umbraco\ucommerce\Apps\Tax.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

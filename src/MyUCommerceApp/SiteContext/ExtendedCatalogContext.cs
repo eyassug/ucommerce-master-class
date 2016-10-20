@@ -8,7 +8,7 @@ using UCommerce.Runtime;
 
 namespace MyUCommerceApp.BusinessLogic.SiteContext
 {
-    public class ExtendedCatalogContext : CatalogContext
+    public class ExtendedCatalogContext : UCommerce.Runtime.CatalogContext
     {
         public ExtendedCatalogContext(IDomainService domainService,
                                         IRepository<ProductCatalogGroup> productCatalogGroupRepository,
