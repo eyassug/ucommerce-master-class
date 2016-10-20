@@ -22,6 +22,8 @@ namespace MyUCommerceApp.Website.Models
 
 		public string SubTotal { get; set; }
 
+        public int NumberOfDaysForRental { get; set; }
+
 		public string TaxTotal { get; set; }
 
 		public string DiscountTotal { get; set; }

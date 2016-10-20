@@ -51,6 +51,9 @@ namespace MyUCommerceApp.Website.Controllers
         [HttpPost]
         public ActionResult Index(PurchaseOrderViewModel model)
         {
+            var unitPrice = model.NumberOfDaysForRental * 100;
+            var orderLine = TransactionLibrary.AddToBasket(1, "sku", "variant", unitPrice: unitPrice);
+            orderLine["14daysormore"] = "True";
 	        foreach (var orderlineViewModel in model.OrderLines)
 	        {
 		        int newQuantity = orderlineViewModel.Quantity;
