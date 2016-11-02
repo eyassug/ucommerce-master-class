@@ -11,7 +11,7 @@ namespace MyUCommerceApp.Website.Controllers
     {
 		public ActionResult Index()
 		{
-			return View("/views/frontpage.cshtml");
+			return View("/views/mc/frontpage.cshtml");
 		}
 	}
 }

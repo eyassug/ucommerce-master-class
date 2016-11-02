@@ -48,7 +48,7 @@ namespace MyUCommerceApp.Website.Controllers
 
 			addressDetails.AvailableCountries = Country.All().ToList().Select(x => new SelectListItem() {Text = x.Name, Value = x.CountryId.ToString()}).ToList();
 
-			return View("/views/AddressDetails.cshtml", addressDetails);
+			return View("/views/mc/AddressDetails.cshtml", addressDetails);
 		}
 
 		[HttpPost]

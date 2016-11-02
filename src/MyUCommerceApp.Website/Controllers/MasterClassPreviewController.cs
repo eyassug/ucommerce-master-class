@@ -53,7 +53,7 @@ namespace MyUCommerceApp.Website.Controllers
         [HttpPost]
         public ActionResult Index(bool checkout)
         {
-            return View("/Views/Complete.cshtml");
+            return View("/Views/mc/Complete.cshtml");
         }
     }
 }

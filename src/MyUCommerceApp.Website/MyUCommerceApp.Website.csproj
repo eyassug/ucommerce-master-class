@@ -355,17 +355,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
-    <Content Include="Views\AddressDetails.cshtml" />
-    <Content Include="Views\Basket.cshtml" />
-    <Content Include="Views\Category.cshtml" />
-    <Content Include="Views\Complete.cshtml" />
-    <Content Include="Views\Frontpage.cshtml" />
-    <Content Include="Views\Layout.cshtml" />
-    <Content Include="Views\PartialViews\CategoryNavigation.cshtml" />
-    <Content Include="Views\Payment.cshtml" />
-    <Content Include="Views\preview.cshtml" />
-    <Content Include="Views\Product.cshtml" />
-    <Content Include="Views\Shipping.cshtml" />
+    <Content Include="Views\mc\AddressDetails.cshtml" />
+    <Content Include="Views\mc\Basket.cshtml" />
+    <Content Include="Views\mc\Category.cshtml" />
+    <Content Include="Views\mc\Complete.cshtml" />
+    <Content Include="Views\mc\Frontpage.cshtml" />
+    <Content Include="Views\mc\Layout.cshtml" />
+    <Content Include="Views\mc\PartialViews\CategoryNavigation.cshtml" />
+    <Content Include="Views\mc\Payment.cshtml" />
+    <Content Include="Views\mc\preview.cshtml" />
+    <Content Include="Views\mc\Product.cshtml" />
+    <Content Include="Views\mc\Shipping.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Bootstrap\bootstrap-3.3.6-dist\css\bootstrap-theme.css.map" />
     <Content Include="Bootstrap\bootstrap-3.3.6-dist\css\bootstrap-theme.min.css.map" />

@@ -37,7 +37,7 @@ namespace MyUCommerceApp.Website.Controllers
 				paymentViewModel.AvailablePaymentMethods.Add(option);
 			}
 
-			return View("/Views/Payment.cshtml", paymentViewModel);
+			return View("/Views/mc/Payment.cshtml", paymentViewModel);
 		}
 
 		[HttpPost]
