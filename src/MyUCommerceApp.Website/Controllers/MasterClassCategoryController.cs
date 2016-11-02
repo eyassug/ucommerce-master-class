@@ -14,7 +14,7 @@ namespace MyUCommerceApp.Website.Controllers
         {
             var categoryViewModel = new CategoryViewModel();
 
-            return View("/views/category.cshtml", categoryViewModel);
+            return View("/views/mc/category.cshtml", categoryViewModel);
         }
 
         private IList<ProductViewModel> MapProducts(ICollection<Product> productsInCategory)

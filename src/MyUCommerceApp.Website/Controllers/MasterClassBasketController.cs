@@ -13,7 +13,7 @@ namespace MyUCommerceApp.Website.Controllers
         {
             var basketModel = new PurchaseOrderViewModel();
 
-            return View("/Views/Basket.cshtml", basketModel);
+            return View("/Views/mc/Basket.cshtml", basketModel);
         }
 
         [HttpPost]

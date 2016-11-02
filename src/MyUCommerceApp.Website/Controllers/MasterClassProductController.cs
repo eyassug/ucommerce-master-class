@@ -14,7 +14,7 @@ namespace MyUCommerceApp.Website.Controllers
 		{
 			ProductViewModel productModel = new ProductViewModel();
 
-            return View("/views/product.cshtml", productModel);
+            return View("/views/mc/product.cshtml", productModel);
 		}
 
 		private IList<ProductViewModel> MapVariants(ICollection<Product> variants)

@@ -13,7 +13,7 @@ namespace MyUCommerceApp.Website.Controllers
         {
             var categoryNavigation = new CategoryNavigationViewModel();
 
-            return View("/views/PartialViews/CategoryNavigation.cshtml", categoryNavigation);
+            return View("/views/mc/PartialViews/CategoryNavigation.cshtml", categoryNavigation);
         }
 
         private IList<CategoryViewModel> MapCategories(ICollection<UCommerce.EntitiesV2.Category> categoriesToMap)

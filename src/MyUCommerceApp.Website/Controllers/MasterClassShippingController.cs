@@ -13,7 +13,7 @@ namespace MyUCommerceApp.Website.Controllers
         {
             var shippingModel = new ShippingViewModel();
 
-            return View("/Views/Shipping.cshtml", shippingModel);
+            return View("/Views/mc/Shipping.cshtml", shippingModel);
         }
 
         [HttpPost]
