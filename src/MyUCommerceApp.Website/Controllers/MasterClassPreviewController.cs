@@ -19,10 +19,39 @@ namespace MyUCommerceApp.Website.Controllers
             model.BillingAddress = MapOrderAddress(TransactionLibrary.GetBillingInformation());
             model.ShippingAddress = MapOrderAddress(TransactionLibrary.GetShippingInformation());
 
-            return View("/Views/preview.cshtml", model);
+	        var basket = UCommerce.Api.TransactionLibrary.GetBasket(false).PurchaseOrder;
+	        var billingCurrency = basket.BillingCurrency;
+
+	        foreach (UCommerce.EntitiesV2.OrderLine orderLine in basket.OrderLines)
+	        {
+		        var orderLineViewModel = new OrderlineViewModel();
+
+		        orderLineViewModel.Sku = orderLine.Sku;
+		        orderLineViewModel.VariantSku = orderLine.VariantSku;
+		        orderLineViewModel.ProductName = orderLine.ProductName;
+		        orderLineViewModel.Quantity = orderLine.Quantity;
+				orderLineViewModel.Total = new Money(orderLine.Total.GetValueOrDefault(), billingCurrency).ToString();
+
+				model.OrderLines.Add(orderLineViewModel);
+	        }
+
+	        model.SubTotal = new Money(basket.SubTotal.GetValueOrDefault(), billingCurrency).ToString();
+	        model.TaxTotal = new Money(basket.TaxTotal.GetValueOrDefault(), billingCurrency).ToString();
+	        model.DiscountTotal = new Money(basket.DiscountTotal.GetValueOrDefault(), billingCurrency).ToString();
+
+	        model.ShippingTotal = GetMoneyFormat(basket.ShippingTotal, billingCurrency);
+	        model.PaymentTotal = GetMoneyFormat(basket.PaymentTotal, billingCurrency);
+	        model.OrderTotal = GetMoneyFormat(basket.OrderTotal, billingCurrency);
+
+            return View("/Views/mc/preview.cshtml", model);
         }
 
-        private AddressViewModel MapOrderAddress(OrderAddress orderAddress)
+		private string GetMoneyFormat(decimal? amount, Currency currency)
+		{
+			return new Money(amount.GetValueOrDefault(), currency).ToString();
+		}
+
+		private AddressViewModel MapOrderAddress(OrderAddress orderAddress)
         {
             var addressDetails = new AddressViewModel();
 
@@ -53,6 +82,8 @@ namespace MyUCommerceApp.Website.Controllers
         [HttpPost]
         public ActionResult Index(bool checkout)
         {
+			UCommerce.Api.TransactionLibrary.RequestPayments();
+
             return View("/Views/mc/Complete.cshtml");
         }
     }
