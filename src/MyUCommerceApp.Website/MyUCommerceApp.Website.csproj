@@ -375,7 +375,18 @@
     <Content Include="Bootstrap\bootstrap-3.3.6-dist\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Bootstrap\bootstrap-3.3.6-dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Bootstrap\bootstrap-3.3.6-dist\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Umbraco\ucommerce\Apps\MyCatalogContext\MyCatalogContext.config" />
+    <Content Include="Umbraco\ucommerce\Apps\MyCatalogContext\MyCatalogContext.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Umbraco\ucommerce\Apps\Master Class\ToCompletedOrderPipeline.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Umbraco\ucommerce\Apps\Master Class\DataTypes.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Umbraco\ucommerce\Apps\Master Class\Tax.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
