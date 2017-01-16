@@ -26,6 +26,6 @@ namespace MyUCommerceApp.Website.Models
 
 		public string VariantSku { get; set; }
 
-		public PriceCalculation PriceCalculation { get; set; }
+		public UCommerce.Api.PriceCalculation PriceCalculation { get; set; }
 	}
 }
