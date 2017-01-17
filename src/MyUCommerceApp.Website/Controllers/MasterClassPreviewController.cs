@@ -16,10 +16,35 @@ namespace MyUCommerceApp.Website.Controllers
         {
             PurchaseOrderViewModel model = MapOrder();
 
+            PurchaseOrder basket = TransactionLibrary.GetBasket(false).PurchaseOrder;
+
+            //Get order for email content using querystring - the cookie no longer works.
+            var order = TransactionLibrary.GetPurchaseOrder(Guid.Parse(Request.QueryString["OrderGuid"]));
+
             model.BillingAddress = MapOrderAddress(TransactionLibrary.GetBillingInformation());
             model.ShippingAddress = MapOrderAddress(TransactionLibrary.GetShippingInformation());
 
-            return View("/Views/preview.cshtml", model);
+            foreach (OrderLine orderLine in basket.OrderLines)
+            {
+                var orderLineModel = new OrderlineViewModel();
+                orderLineModel.Sku = orderLine.Sku;
+                orderLineModel.VariantSku = orderLine.VariantSku;
+                orderLineModel.ProductName = orderLine.ProductName;
+                orderLineModel.Total = new UCommerce.Money(orderLine.Total.GetValueOrDefault(), basket.BillingCurrency).ToString();
+                orderLineModel.Quantity = orderLine.Quantity;
+                
+                model.OrderLines.Add(orderLineModel);
+
+            }
+
+            model.OrderTotal = new Money(basket.OrderTotal.GetValueOrDefault(), basket.BillingCurrency).ToString();
+            model.SubTotal = new Money(basket.SubTotal.GetValueOrDefault(), basket.BillingCurrency).ToString();
+            model.PaymentTotal = new Money(basket.PaymentTotal.GetValueOrDefault(), basket.BillingCurrency).ToString();
+            model.ShippingTotal = new Money(basket.ShippingTotal.GetValueOrDefault(), basket.BillingCurrency).ToString();
+            model.TaxTotal = new Money(basket.TaxTotal.GetValueOrDefault(), basket.BillingCurrency).ToString();
+            model.DiscountTotal = new Money(basket.DiscountTotal.GetValueOrDefault(), basket.BillingCurrency).ToString();
+
+            return View("/Views/mc/preview.cshtml", model);
         }
 
         private AddressViewModel MapOrderAddress(OrderAddress orderAddress)
@@ -53,6 +78,7 @@ namespace MyUCommerceApp.Website.Controllers
         [HttpPost]
         public ActionResult Index(bool checkout)
         {
+            UCommerce.Api.TransactionLibrary.RequestPayments();
             return View("/Views/mc/Complete.cshtml");
         }
     }

@@ -15,8 +15,8 @@ namespace MyUCommerceApp.Website.Controllers
 		{
 			var addressDetails = new AddressDetailsViewModel();
 
-			var shippingInformation = TransactionLibrary.GetShippingInformation();
-			var billingInformation = TransactionLibrary.GetBillingInformation();
+			OrderAddress shippingInformation = UCommerce.Api.TransactionLibrary.GetShippingInformation();
+			OrderAddress billingInformation = UCommerce.Api.TransactionLibrary.GetBillingInformation();
 			
 			addressDetails.BillingAddress.FirstName = billingInformation.FirstName;
 			addressDetails.BillingAddress.LastName = billingInformation.LastName;
