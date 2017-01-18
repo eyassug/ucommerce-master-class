@@ -19,7 +19,7 @@ namespace MyUCommerceApp.Website.Controllers
             model.BillingAddress = MapOrderAddress(TransactionLibrary.GetBillingInformation());
             model.ShippingAddress = MapOrderAddress(TransactionLibrary.GetShippingInformation());
 
-            return View("/Views/preview.cshtml", model);
+            return View("/Views/mc/preview.cshtml", model);
         }
 
         private AddressViewModel MapOrderAddress(OrderAddress orderAddress)
