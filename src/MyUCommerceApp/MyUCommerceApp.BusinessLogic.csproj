@@ -66,6 +66,8 @@
     <Compile Include="NhibernateMappings\NHibernateMappingTag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\LatestOrderQuery.cs" />
+    <Compile Include="Queries\ProductsByPropertiesQuery.cs" />
+    <Compile Include="SiteContext\ExtendedCatalogContext.cs" />
     <Compile Include="WebServices\WebServiceTag.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -74,7 +76,6 @@
     <Folder Include="Pipelines\" />
     <Folder Include="Pricing\" />
     <Folder Include="Shipping\" />
-    <Folder Include="SiteContext\" />
     <Folder Include="Tax\" />
     <Folder Include="WebServices\Impl\" />
     <Folder Include="WebServices\Model\" />
