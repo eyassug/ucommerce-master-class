@@ -19,7 +19,7 @@ namespace MyUCommerceApp.Website.Controllers
             PurchaseOrder basket = TransactionLibrary.GetBasket(false).PurchaseOrder;
 
             //Get order for email content using querystring - the cookie no longer works.
-            var order = TransactionLibrary.GetPurchaseOrder(Guid.Parse(Request.QueryString["OrderGuid"]));
+            //var order = TransactionLibrary.GetPurchaseOrder(Guid.Parse(Request.QueryString["OrderGuid"]));
 
             model.BillingAddress = MapOrderAddress(TransactionLibrary.GetBillingInformation());
             model.ShippingAddress = MapOrderAddress(TransactionLibrary.GetShippingInformation());
