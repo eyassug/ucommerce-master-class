@@ -13,6 +13,10 @@ namespace MyUCommerceApp.Website.Controllers
 {
 	public class MasterClassCategoryController : Umbraco.Web.Mvc.RenderMvcController
 	{
+	    public MasterClassCategoryController()
+	    {
+	        
+	    }
         public ActionResult Index()
         {
             var categoryViewModel = new CategoryViewModel();
