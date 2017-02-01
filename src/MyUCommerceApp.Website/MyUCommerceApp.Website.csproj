@@ -160,6 +160,9 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\..\lib\RavenDB\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
     <Reference Include="Semver, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\semver.1.1.2\lib\net45\Semver.dll</HintPath>
       <Private>True</Private>
@@ -354,6 +357,7 @@
     <Content Include="App_Code\Navigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Umbraco\ucommerce\css\custom.css" />
     <Content Include="web.config" />
     <Content Include="Views\mc\AddressDetails.cshtml" />
     <Content Include="Views\mc\Basket.cshtml" />
