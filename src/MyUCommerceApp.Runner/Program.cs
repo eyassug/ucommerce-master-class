@@ -12,6 +12,7 @@ namespace MyUCommerceApp.Integration
 	{
 		static void Main(string[] args)
 		{
-		}
+            var firstOrder = PurchaseOrder.All().First();
+        }
 	}
 }
