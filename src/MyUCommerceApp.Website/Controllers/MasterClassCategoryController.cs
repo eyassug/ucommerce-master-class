@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using UCommerce.EntitiesV2;
 using MyUCommerceApp.Website.Models;
@@ -9,7 +6,8 @@ using MyUCommerceApp.Website.Models;
 namespace MyUCommerceApp.Website.Controllers
 {
 	public class MasterClassCategoryController : Umbraco.Web.Mvc.RenderMvcController
-	{
+    {
+        [HttpGet]
         public ActionResult Index()
         {
             var categoryViewModel = new CategoryViewModel();
