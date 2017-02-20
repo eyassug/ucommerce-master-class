@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using UCommerce.Api;
 using UCommerce.EntitiesV2;
@@ -11,7 +8,8 @@ namespace MyUCommerceApp.Website.Controllers
 {
 	public class MasterClassBillingController : Umbraco.Web.Mvc.RenderMvcController
     {
-		public ActionResult Index()
+        [HttpGet]
+        public ActionResult Index()
 		{
 			var addressDetails = new AddressDetailsViewModel();
 

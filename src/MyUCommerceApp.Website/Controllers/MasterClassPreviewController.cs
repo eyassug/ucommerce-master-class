@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using UCommerce.Api;
 using UCommerce.EntitiesV2;
-using UCommerce;
 using MyUCommerceApp.Website.Models;
 
 namespace MyUCommerceApp.Website.Controllers
 {
 	public class MasterClassPreviewController : Umbraco.Web.Mvc.RenderMvcController
     {
+        [HttpGet]
         public ActionResult Index()
         {
             PurchaseOrderViewModel model = MapOrder();
