@@ -2,6 +2,9 @@
 using System.Web.Mvc;
 using UCommerce.EntitiesV2;
 using MyUCommerceApp.Website.Models;
+using UCommerce.Extensions;
+using UCommerce.Runtime;
+using UCommerce.Api;
 
 namespace MyUCommerceApp.Website.Controllers
 {
@@ -12,19 +15,35 @@ namespace MyUCommerceApp.Website.Controllers
 		{
 			ProductViewModel productModel = new ProductViewModel();
 
+		    productModel = MapProduct(UCommerce.Runtime.SiteContext.Current.CatalogContext.CurrentProduct);
+
             return View("/views/mc/product.cshtml", productModel);
 		}
 
-		private IList<ProductViewModel> MapVariants(ICollection<Product> variants)
+		private ProductViewModel MapProduct(UCommerce.EntitiesV2.Product product)
 		{
-			var variantModels = new List<ProductViewModel>();
+            var model = new ProductViewModel();
 
-			return variantModels;
+		    model.Sku = product.Sku;
+		    model.Name = product.DisplayName();
+		    model.LongDescription = product.LongDescription();
+		    model.PriceCalculation = UCommerce.Api.CatalogLibrary.CalculatePrice(product);
+
+		    model.VariantSku = product.VariantSku;
+		    model.IsVariant = product.IsVariant;
+
+		    foreach (var productVariant in product.Variants)
+		    {
+		        model.Variants.Add(MapProduct(productVariant));
+		    }
+
+            return model;
 		}
 
 		[HttpPost]
 		public ActionResult Index(AddToBasketViewModel model)
 		{
+		    TransactionLibrary.AddToBasket(1, model.Sku, model.VariantSku);
             return Index();
         }
     }
