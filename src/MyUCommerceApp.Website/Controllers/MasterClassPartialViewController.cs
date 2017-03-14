@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using MyUCommerceApp.Website.Models;
+using UCommerce.Api;
+using UCommerce.Extensions;
 
 namespace MyUCommerceApp.Website.Controllers
 {
@@ -9,6 +11,8 @@ namespace MyUCommerceApp.Website.Controllers
         public ActionResult CategoryNavigation()
         {
             var categoryNavigation = new CategoryNavigationViewModel();
+           
+            categoryNavigation.Categories = MapCategories(UCommerce.Api.CatalogLibrary.GetRootCategories());
 
             return View("/views/mc/PartialViews/CategoryNavigation.cshtml", categoryNavigation);
         }
@@ -16,6 +20,19 @@ namespace MyUCommerceApp.Website.Controllers
         private IList<CategoryViewModel> MapCategories(ICollection<UCommerce.EntitiesV2.Category> categoriesToMap)
         {
             var categoriesToReturn = new List<CategoryViewModel>();
+
+            foreach (var category in categoriesToMap)
+            {
+                var categoryViewModel = new CategoryViewModel();
+
+                categoryViewModel.Name = category.DisplayName();
+
+                categoryViewModel.Categories = MapCategories(UCommerce.Api.CatalogLibrary.GetCategories(category));
+
+                categoryViewModel.Url = "/category?category=" + category.CategoryId;
+
+                categoriesToReturn.Add(categoryViewModel);
+            }
 
             return categoriesToReturn;
         }
