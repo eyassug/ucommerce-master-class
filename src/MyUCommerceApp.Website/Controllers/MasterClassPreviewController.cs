@@ -16,7 +16,7 @@ namespace MyUCommerceApp.Website.Controllers
             model.BillingAddress = MapOrderAddress(TransactionLibrary.GetBillingInformation());
             model.ShippingAddress = MapOrderAddress(TransactionLibrary.GetShippingInformation());
 
-            var basket = UCommerce.Api.TransactionLibrary.GetBasket(false).PurchaseOrder;
+            UCommerce.EntitiesV2.PurchaseOrder basket = UCommerce.Api.TransactionLibrary.GetBasket(false).PurchaseOrder;
             var billingCurrency = basket.BillingCurrency;
 
             foreach (var basketOrderLine in basket.OrderLines)
