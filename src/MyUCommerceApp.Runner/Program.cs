@@ -41,28 +41,43 @@ namespace MyUCommerceApp.Integration
             //N+1 = 1 query to laod up data + 1 query per relation we access. 
             //Fetch prevents N+1
             //Using statement on the website is bad. 
-            //var sessionProvider = ObjectFactory.Instance.Resolve<ISessionProvider>();
-            //using (var session = sessionProvider.GetSession())
-            //{
-            //     var orders = session.Query<PurchaseOrder>().Fetch(x => x.Customer).ToList();
-
-            //    foreach (var order in orders)
-            //    {
-            //        if (order.Customer != null)
-            //        {
-            //            Console.WriteLine(order.Customer.FirstName);
-            //        }
-            //    }
-            //}
-
             var sessionProvider = ObjectFactory.Instance.Resolve<ISessionProvider>();
-            sessionProvider.GetSession()
-                .Query<Product>()
-                .Where(product => product.ProductId == 105)
-                .FetchMany(x => x.Variants) //4
-                .FetchMany(x => x.CategoryProductRelations) //4
-                .FetchMany(x => x.ProductRelations) //4
-                .ToList();
+            using (var session = sessionProvider.GetSession())
+            {
+                var orders = session.Query<PurchaseOrder>().ToList();
+
+                foreach (var order in orders)
+                {
+                    if (order.Customer != null)
+                    {
+                        Console.WriteLine(order.Customer.FirstName);
+                    }
+                }
+            }
+            using (var session = sessionProvider.GetSession())
+            {
+                var orders2 = session.Query<PurchaseOrder>().ToList();
+
+                foreach (var order in orders2)
+                {
+                    if (order.Customer != null)
+                    {
+                        Console.WriteLine(order.Customer.FirstName);
+                    }
+                }
+            }
+
+            //Level 1 cache = session
+            //level 2 cache = sys cache 
+
+            //var sessionProvider = ObjectFactory.Instance.Resolve<ISessionProvider>();
+            //sessionProvider.GetSession()
+            //    .Query<Product>()
+            //    .Where(product => product.ProductId == 105)
+            //    .FetchMany(x => x.Variants) //4
+            //    .FetchMany(x => x.CategoryProductRelations) //4
+            //    .FetchMany(x => x.ProductRelations) //4
+            //    .ToList();
 
             Console.ReadLine();
         }
