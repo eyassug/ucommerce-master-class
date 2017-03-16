@@ -380,6 +380,9 @@
     <Content Include="Bootstrap\bootstrap-3.3.6-dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Bootstrap\bootstrap-3.3.6-dist\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Umbraco\ucommerce\Apps\MyCatalogContext\MyCatalogContext.config" />
+    <Content Include="Umbraco\ucommerce\Apps\Pipelines\ToCompleted\ToCompletedPipeline.config" />
+    <Content Include="Umbraco\ucommerce\Apps\DataTypes\DataTypes.config" />
+    <Content Include="Umbraco\ucommerce\Apps\Prices\Tax.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -387,11 +390,7 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Umbraco\ucommerce\Apps\DataTypes\" />
-    <Folder Include="Umbraco\ucommerce\Apps\Pipelines\ToCompleted\" />
-    <Folder Include="Umbraco\ucommerce\Apps\Prices\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
